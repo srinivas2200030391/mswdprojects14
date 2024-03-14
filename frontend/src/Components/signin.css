@@ -1,0 +1,14 @@
+.signinpage {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.image img {
+  padding-top: 60px;
+  transform: translateX(42%);
+  width: 60%;
+}
+
+.form {
+  background-color: red;
+}

@@ -1,0 +1,45 @@
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.card-details {
+  text-align: center;
+  padding: 400px; /* Increased padding */
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  width: 90%;
+  margin-left: auto; /* Move the whole card to center */
+  margin-right: auto; /* Move the whole card to center */
+}
+
+.card-image {
+  width: 450px;
+  margin-bottom: 20px;
+}
+
+.card-title {
+  margin-bottom: 10px;
+}
+
+.detail-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.detail-table td {
+  padding: 8px 16px;
+  border-bottom: 1px solid #ddd;
+}
+
+.detail-table td:first-child {
+  text-align: left;
+}
+
+.detail-table td:last-child {
+  text-align: right;
+}
