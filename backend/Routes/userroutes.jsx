@@ -1,6 +1,6 @@
 const express = require("express");
 const response = express.Router();
-const users = require("../controllers/userController.jsx");
+const users = require("../controllers/usercontroller.jsx");
 
 response.get("/:id", users.viewusers);
 
