@@ -26,6 +26,9 @@ mongoose
     console.log(err.message);
   });
 
+app.get("/", (req, res) => {
+  res.send("Hello");
+});
 app.use("/users", userRoutes);
 app.use("/admin", adminRoutes);
 
