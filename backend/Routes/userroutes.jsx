@@ -10,6 +10,7 @@ response.post("/login", users.login);
 response.get("/view/:email", users.viewbyemail);
 response.delete("/delete/:id", users.deleteusers);
 response.put("/updateBalance/", users.updateBalance);
+response.get("/viewusers/", users.viewusers);
 response.post("/forgot", async (req, res) => {
   try {
     await users.sendEmail(
