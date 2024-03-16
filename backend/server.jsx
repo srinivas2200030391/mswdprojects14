@@ -29,6 +29,9 @@ mongoose
 app.get("/", (req, res) => {
   res.send("Hello");
 });
+app.get("/hello", (req, res) => {
+  res.send("Hello People");
+});
 app.use("/users", userRoutes);
 app.use("/admin", adminRoutes);
 
