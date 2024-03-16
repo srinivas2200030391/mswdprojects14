@@ -4,14 +4,7 @@ const bcrypt = require("bcrypt");
 const salt = bcrypt.genSaltSync(10);
 const secret = bcrypt.hashSync("BA/4789adfafadfafa", salt);
 const jwt = require("jsonwebtoken");
-const viewusers = async (request, response) => {
-  try {
-    const data = await user.find({});
-    response.send(data);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+
 const viewbyemail = async (request, response) => {
   try {
     const email = request.params.email;
@@ -26,20 +19,6 @@ const viewbyemail = async (request, response) => {
   }
 };
 
-const updateuser = async (request, response) => {
-  try {
-    const s = request.body;
-    const t = { ...s };
-    console.log(t);
-    const data = await user.updateMany(
-      { email: email },
-      { $set: { sname: "Srinu" } }
-    );
-    response.send(data);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
 const create = async (request, response) => {
   try {
     const s = await request.body;
@@ -113,65 +92,53 @@ const deleteusers = async (request, response) => {
   }
 };
 
-// emailController.js
-const nodemailer = require("nodemailer");
-
-// Create a transporter
-const transporter = nodemailer.createTransport({
-  service: "Gmail",
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: true, // true for 465, false for other ports
-  auth: {
-    user: "vasus4990@gmail.com",
-    pass: "imxokehribgnizlt",
-  },
-  tls: {
-    rejectUnauthorized: false,
-  },
-});
-
-// Function to send an email
-async function sendEmail(to, subject, text) {
-  try {
-    const mailOptions = {
-      from: "vasus4990@gmail.com",
-      to,
-      subject,
-      text,
-    };
-
-    await transporter.sendMail(mailOptions);
-    console.log("Email sent successfully");
-  } catch (error) {
-    console.error("Error sending email:", error);
-    throw error; // Propagate the error to the caller
-  }
-}
-
-const updateBalance = async (request, response) => {
+const Credit = async (request, response) => {
   try {
     const s = request.body;
+    console.log(s);
     const email = Object.values(s)[0];
     const value = parseInt(Object.values(s)[1]);
-    const data = await user.find(
-      { email: email },
-      { $set: { balance: balance + value } }
+    var data = await user.find({ email: email }, { _id: 1, balance: 1 });
+    data = data[0];
+    data = await user.updateOne(
+      { _id: data._id },
+      { balance: data.balance + value }
     );
+    console.log(data);
     response.send("Updated");
+  } catch (error) {
+    response.status(500).send(error.message);
+  }
+};
+const Withdrawl = async (request, response) => {
+  try {
+    const s = request.body;
+    console.log(s);
+    const email = Object.values(s)[0];
+    const value = parseInt(Object.values(s)[1]);
+    var data = await user.find({ email: email }, { _id: 1, balance: 1 });
+    data = data[0];
+    if (data.balance < value) {
+      return response.json("Insufficient Balance");
+    } else {
+      data = await user.updateOne(
+        { _id: data._id },
+        { balance: data.balance - value }
+      );
+      console.log(data);
+      response.send("Updated");
+    }
   } catch (error) {
     response.status(500).send(error.message);
   }
 };
 
 module.exports = {
-  viewusers,
-  updateuser,
   create,
   login,
   viewbyemail,
   editusers,
   deleteusers,
-  sendEmail,
-  updateBalance,
+  Credit,
+  Withdrawl,
 };
