@@ -163,7 +163,7 @@ const viewloans = async (request, response) => {
     const data = await loan.find();
     if (!data) return response.status(404).send("No Loan Found!");
     else {
-      response.json(data);
+      response.send(data);
     }
   } catch (error) {
     response.status(500).send(error.message);
