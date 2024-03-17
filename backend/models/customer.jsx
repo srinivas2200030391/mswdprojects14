@@ -6,6 +6,15 @@ const UserSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+ fullname:{
+  type:String,
+  required:true,
+ },
+ accountnumber:{
+  type:String,
+  required:false,
+  unique:true,
+ },
   aadhar: {
     type: String,
     required: true,
@@ -18,20 +27,20 @@ const UserSchema = new mongoose.Schema({
   },
   address: {
     type: String,
-    required: true,
+    required: false,
   },
   balance: {
     type: Number,
-    required: true,
+    required: false,
     default: 0,
   },
   photo: {
     type: String,
-    required: true,
+    required: false,
   },
   gender: {
     type: String,
-    enum: ["Male", "Female"],
+    enum: ["male", "female"],
     required: true,
   },
   phone: {
@@ -49,29 +58,29 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-UserSchema.methods.generateToken = async function () {
-  try {
-    return jwt.signin(
-      {
-        _id: this._id.toString(),
-        username: this.username,
-        aadhar: this.aadhar,
-        age: this.age,
-        address: this.address,
-        balance: this.balance,
-        photo: this.photo,
-        gender: this.gender,
-        phone: this.phone,
-        email: this.email,
-      },
-      {
-        expiresIn: "1d",
-      }
-    );
-  } catch (error) {
-    console.error(error);
-  }
-};
+// UserSchema.methods.generateToken = async function () {
+//   try {
+//     return jwt.signin(
+//       {
+//         _id: this._id.toString(),
+//         username: this.username,
+//         aadhar: this.aadhar,
+//         age: this.age,
+//         address: this.address,
+//         balance: this.balance,
+//         photo: this.photo,
+//         gender: this.gender,
+//         phone: this.phone,
+//         email: this.email,
+//       },
+//       {
+//         expiresIn: "1d",
+//       }
+//     );
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
 const UserModel = mongoose.model("User", UserSchema);
 

@@ -8,6 +8,9 @@ const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const jwt = require("jsonwebtoken");
+
+
+
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -17,21 +20,22 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log("Connected Successfully");
+
+
+
+mongoose.connect(process.env.MONGO_URI).then(() => {
+    console.log("Connected to DB Successfully");
   })
   .catch((err) => {
     console.log(err.message);
   });
 
-app.get("/", (req, res) => {
-  res.send("Hello");
-});
-app.get("/hello", (req, res) => {
-  res.send("Hello People");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hello");
+// });
+// app.get("/hello", (req, res) => {
+//   res.send("Hello People");
+// });
 app.use("/users", userRoutes);
 app.use("/admin", adminRoutes);
 

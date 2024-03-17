@@ -50,3 +50,7 @@
   text-align: center;
   background-color: rgb(30, 27, 27);
 }
+
+.form-control1.form-control2.form-control3{
+  height: 34%;
+}

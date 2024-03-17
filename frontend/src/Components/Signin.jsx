@@ -20,7 +20,7 @@ export default function Signin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get(
+      const response = await axios.post(
         "http://localhost:2014/users/login",
         formData
       );
@@ -83,8 +83,8 @@ export default function Signin() {
             border: "1px solid black",
             borderRadius: "5pt",
             padding: "8pt",
-            transform: "translateX(5%)",
-            width: "80%",
+            transform: "translateX(1%)",
+            width: "90%",
           }}>
           📱Sign In with Mobile
         </Link>
@@ -103,7 +103,7 @@ export default function Signin() {
             transform: "translateX(-4%)",
             width: "100%",
           }}>
-          -------------------- or ----------------------
+          -------------------------------- or -------------------------------
         </p>
         <div className="input-wrapper">
           <form onSubmit={handleSubmit}>
@@ -120,7 +120,7 @@ export default function Signin() {
             <input
               type="email"
               id="email"
-              className="input"
+              className="inputemail"
               value={formData.email}
               onChange={handleChange}
               required
@@ -130,7 +130,8 @@ export default function Signin() {
                 borderRadius: "5pt",
                 padding: "12pt",
                 transform: "translateX(-11px)",
-                width: "94%",
+                width: "30rem",
+                height:"3rem"
               }}
             />
             <br />
@@ -147,7 +148,7 @@ export default function Signin() {
             <input
               type="password"
               id="password"
-              className="input"
+              className="inputpassword"
               value={formData.password}
               onChange={handleChange}
               required
@@ -158,6 +159,7 @@ export default function Signin() {
                 padding: "12pt",
                 transform: "translateX(-11px)",
                 width: "94%",
+                height:"3rem"
               }}
             />
             <br />
@@ -170,6 +172,7 @@ export default function Signin() {
                 left: "50%",
                 paddingLeft: "117pt",
                 fontFamily: "sans-serif",
+                transform:"translateX(100%)",
               }}>
               Forgot Password?
             </Link>
