@@ -8,6 +8,8 @@ const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const jwt = require("jsonwebtoken");
+const user = require("./models/customer.jsx");
+const admin = require("./models/Admin.jsx");
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -35,27 +37,43 @@ app.get("/hello", (req, res) => {
 app.use("/users", userRoutes);
 app.use("/admin", adminRoutes);
 
-// app.post("/login", async (request, response) => {
-//   try {
-//     const s = await request.body;
-//     console.log(s);
-//     const id = parseInt(s["sid"]);
-//     const password = s["spassword"];
-//     const data = await collection.find({ sid: id }).toArray();
-//     const p = bcrypt.compareSync(password, data[0].spassword);
-//     if (p) {
-//       console.log("Successful");
-//     }
-//     if (data) {
-//       jwt.sign({ id, id: data._id }, secret, {}, (err, token) => {
-//         if (err) throw err;
-//         response.cookie("token", token).json("ok");
-//       });
-//     }
-//   } catch (error) {
-//     response.status(500).send(error.message);
-//   }
-// });
+const login = async (request, response) => {
+  try {
+    const s = await request.body;
+    const id = Object.values(s)[0];
+    console.log(s);
+    const password = Object.values(s)[1];
+    var data = await user.find({ email: id });
+    var role = "";
+    if (data) {
+      role = "User";
+    }
+    if (data.length == 0) {
+      data = await admin.find({ email: id });
+      if (data) {
+        role = "Admin";
+      }
+    }
+    console.log(Object.values(data));
+    if (data) {
+      const p = bcrypt.compareSync(
+        password,
+        Object.values(data)[0]["password"]
+      );
+      if (p) {
+        console.log("Successful");
+        jwt.sign({ id, id: data._id }, secret, {}, (err, token) => {
+          if (err) throw err;
+          response.cookie("token", token).json(role);
+        });
+      }
+    } else {
+      response.status(500).send("Invalid Credentials");
+    }
+  } catch (error) {
+    response.status(500).send(error.message);
+  }
+};
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
