@@ -18,59 +18,101 @@ const viewbyemail = async (request, response) => {
     response.status(500).send("hello");
   }
 };
-
+const generateAccountNumber = ()=>{
+  const accountnumber = Math.floor(100000000000 +Math.random()*900000000000).toString();
+  return accountnumber
+}
 const create = async (request, response) => {
   try {
     const s = await request.body;
-    const password = bcrypt.hashSync(s["password"], salt);
+    const password =  bcrypt.hashSync(s["password"], salt);
     s["password"] = password;
+    const account_number = generateAccountNumber();
     console.log(s);
-    const users = new user(s);
+    const userData = {...s,accountnumber:account_number}
+    const users = new user(userData);
     await users.save();
+    response.send("Registered Successfully")
     response.status(201).json({
       msg: users,
-      token: users.methods.generateToken(),
-      userId: users._id.toString(),
+      // token: users.methods.generateToken(),
+      // userId: users._id.toString(),
     });
   } catch (error) {
     console.log(error.message);
   }
 };
+// const login = async (request, response) => {
+//   try {
+//     const s = await request.body;
+//     console.log(s);
+//     console.log(Object.values(s)[0]);
+//     const id = Object.values(s)[0];
+//     const password = Object.values(s)[1];
+//     let data = await user.find({ email: id });
+//     var role = "user";
+//     if (!data) {
+//       data = await admin.find({ email: id });
+//       if (data) {
+//         role = "admin";
+//       }
+//     }
+//     if (data) {
+//       const p = bcrypt.compareSync(
+//         password,
+//         Object.values(data)[0]["password"]
+//       );
+//       if (p) {
+//         console.log("Successful");
+//         jwt.sign({ id, id: data._id }, secret, {}, (err, token) => {
+//           if (err) throw err;
+//           console.log(token);
+//           response.cookie("token", token).json(role);
+//         });
+//       }
+//     } else {
+//       response.status(500).send("Invalid Credentials");
+//     }
+//   } catch (error) {
+//     response.status(500).send(error.message);
+//   }
+// };
 const login = async (request, response) => {
   try {
-    const s = await request.body;
-    console.log(s);
-    console.log(Object.values(s)[0]);
-    const id = Object.values(s)[0];
-    const password = Object.values(s)[1];
-    let data = await user.find({ email: id });
-    var role = "user";
-    if (!data) {
-      data = await admin.find({ email: id });
-      if (data) {
-        role = "admin";
-      }
-    }
+    const { email, password } = request.body;
+    
+    let data = await user.findOne({ email });
+    
     if (data) {
-      const p = bcrypt.compareSync(
-        password,
-        Object.values(data)[0]["password"]
-      );
-      if (p) {
+      const isPasswordValid = bcrypt.compareSync(password, data.password);
+      if (isPasswordValid) {
         console.log("Successful");
-        jwt.sign({ id, id: data._id }, secret, {}, (err, token) => {
-          if (err) throw err;
-          console.log(token);
-          response.cookie("token", token).json(role);
-        });
+        response.json("Login successful");
+      } else {
+        response.status(401).send("Invalid email or password");
       }
     } else {
-      response.status(500).send("Invalid Credentials");
+      response.status(401).send("Invalid email or password");
     }
   } catch (error) {
     response.status(500).send(error.message);
   }
 };
+
+
+// const login = async (request,response)=>{
+//   try{
+//       const input = request.body
+//       console.log(input)
+//       const users = await user.findOne(input)
+//       response.json(users)
+//   }
+//   catch(e)
+//   {
+//       response.status(500).send(e.message)
+//   }
+// }
+
 const editusers = async (request, response) => {
   try {
     const users = await user.findByIdAndUpdate(

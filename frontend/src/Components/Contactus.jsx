@@ -17,14 +17,14 @@ const Contactus = () => {
         <form align="center" className="form" onSubmit={getemail} style={{width:'82%'}}>
           <input
             type="text"
-            className="form-control"
+            className="form-control1"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             placeholder="Subject"
           />
           <input
             type="text"
-            className="form-control"
+            className="form-control2"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             placeholder="Enter Name"
@@ -32,7 +32,7 @@ const Contactus = () => {
 
           <input
             type="email"
-            className="form-control"
+            className="form-control3"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             placeholder="Enter email"

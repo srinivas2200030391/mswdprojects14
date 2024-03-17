@@ -37,10 +37,7 @@ function AdminDashboard() {
             <Route path="/monthly" element={<Monthly />} />
             <Route path="/breakdown" element={<Breakdown />} />
             <Route path="/admin" element={<Admin />} />
-            <Route
-              path="/user-dashboard/performance"
-              element={<Performance />}
-            />
+            <Route path="/performance" element={<Performance />} />
           </Route>
         </Routes>
       </ThemeProvider>
@@ -48,4 +45,4 @@ function AdminDashboard() {
   );
 }
 
-export default UserDashboard;
+export default AdminDashboard;

@@ -1,4 +1,3 @@
-//
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./signup.css";
@@ -7,12 +6,13 @@ import axios from 'axios';
 export default function Signin() {
   const [formData, setFormData] = useState({
     username: "",
-    dateOfBirth: "",
+    fullname:"",
+    age: "",
     gender: "",
-    mobileNumber: "",
+    phone: "",
     email: "",
     password: "",
-    aadharNumber: "",
+    aadhar: "",
   });
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -25,18 +25,20 @@ export default function Signin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http:", formData);
+      const response = await axios.post("http://localhost:2014/users/createuser", formData);
       if (response.data != null) {
         console.log(response);
         setFormData({
           username: "",
-          dateOfBirth: "",
+          fullname:"",
+          age: "",
           gender: "",
-          mobileNumber: "",
+          phone: "",
           email: "",
           password: "",
-          aadharNumber: "",
+          aadhar: "",
         });
+
       } else {
         setMessage("Sign In Failed");
       }
@@ -45,37 +47,65 @@ export default function Signin() {
       setMessage("");
     }
   };
+  const aadharnumber = (e)=>{
+    const aadhar = e.target.value
+    if(aadhar.length!==12)
+    {
+      document.getElementById("message2").innerHTML="Aadhar Number must be 12 digits"
+    }
+    else{
+      document.getElementById("message2").innerHTML=""
+    }
+
+  }
+  const passwordvalidation = (e)=>{
+    const password = e.target.value
+    const validatepass = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    if(!validatepass.test(password))
+    {
+      document.getElementById("passmessage").innerHTML="Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character."
+    }
+    else
+    {
+      document.getElementById("passmessage").innerHTML=""
+    }
+  }
+  const agevalidation = (e)=>{
+    const age = e.target.value
+    if(age<=18)
+    {
+      document.getElementById("message1").innerHTML="Only above 18 candidates can create an account"
+    }
+    else
+    {
+      document.getElementById("message1").innerHTML=""
+    }
+
+  }
+  const mobilenumber = (e)=>{
+    const mobile = e.target.value
+    if(mobile.length!=10)
+    {
+      document.getElementById("phone1").innerHTML="Mobile Number should be 10 digits"
+    }
+    else
+    {
+      document.getElementById("phone").innerHTML=""
+    }
+  }
+  const changetext = (e)=>{
+    const fullname = e.target.value
+    const uppercase = fullname.toUpperCase()
+    e.target.value = uppercase
+  }
+
   return (
-    <div
-      className="signuppage"
-      style={{
-        backgroundColor: "#eee8e8",
-        height: "100vh",
-      }}>
-      <div className="image">
-        <img align="middle" src="image2.png" alt="Photo" />
+    <div className="signuppage">
+      <div className="image" style={{ float: "left", width: "50%",transform:"translateY(30%) translateX(-10%)" }}>
+        <img src="image2.png" alt="Photo" />
       </div>
-      <div
-        className="form"
-        align="center"
-        style={{
-          backgroundColor: "white",
-          width: "500px",
-          marginRight: "10%",
-          borderRadius: "20pt",
-          marginTop: "-10px",
-          padding: "30pt",
-        }}>
-        <h3
-          align="center"
-          style={{
-            fontSize: "30pt",
-            fontWeight: "bold",
-            fontFamily: "sans-serif",
-            marginTop: "-15px",
-          }}>
-          Sign Up
-        </h3>
+      <div className="form" style={{ float: "right",transform:"translateX(-1%) translateY(5%)" }}>
+        <h3 style={{fontSize:"34px"}}>Sign Up</h3>
         <br />
         <Link
           className="forgot"
@@ -117,24 +147,27 @@ export default function Signin() {
           <form onSubmit={handleSubmit}>
             <div className="row">
               <div className="column">
-                <label>Username</label>
+                <label>FullName</label>
                 <input
                   type="text"
-                  id="username"
-                  value={formData.username}
+                  id="fullname"
+                  value={formData.fullname}
                   onChange={handleChange}
+                  onKeyUp={changetext}
                   required
                 />
               </div>
               <div className="column">
-                <label>Date of Birth</label>
+                <label>Age</label>
                 <input
-                  type="date"
-                  id="dateOfBirth"
-                  value={formData.dateOfBirth}
+                  type="number"
+                  id="age"
+                  value={formData.age}
                   onChange={handleChange}
+                  onKeyUp={agevalidation}
                   required
                 />
+                <i id='message1'></i>
               </div>
             </div>
 
@@ -156,11 +189,13 @@ export default function Signin() {
                 <label>Aadhar Number</label>
                 <input
                   type="text"
-                  id="aadharNumber"
-                  value={formData.aadharNumber}
+                  id="aadhar"
+                  value={formData.aadhar}
                   onChange={handleChange}
+                  onKeyUp={aadharnumber}
                   required
                 />
+                <i id="message2"></i>
               </div>
             </div>
 
@@ -169,14 +204,25 @@ export default function Signin() {
                 <label>Mobile Number</label>
                 <input
                   type="text"
-                  id="mobileNumber"
-                  value={formData.mobileNumber}
+                  id="phone"
+                  value={formData.phone}
                   onChange={handleChange}
                   pattern="[0-9]{10}"
-                  title="Mobile number must be 10 digits long"
+                  onKeyUp={mobilenumber}
                   required
                 />
+                <i id='phone1'></i>
               </div>
+              <div className="column">
+                <label>Username</label>
+                <input
+                  type="text"
+                  id="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
+                />
+            </div>
             </div>
 
             <div className="row">
@@ -197,48 +243,31 @@ export default function Signin() {
                   id="password"
                   value={formData.password}
                   onChange={handleChange}
+                  onKeyUp={passwordvalidation}
                   required
                 />
+                 <i id="passmessage"></i>
               </div>
             </div>
 
             <div className="button-container">
-              <button type="submit" disabled={!formData}>
+              <button type="submit" disabled={!formData} className="button-18 ">
                 Get Started →
               </button>
             </div>
 
             <div className="signin-container">
               <p>Already have an account?</p>
-              <Link to="/customersignin">Sign In</Link>
+              <Link to="/signin">Sign In</Link>
             </div>
           </form>
-          <p
-            style={{
-              marginBottom: "-20pt",
-              paddingTop: "10pt",
-
-              fontSize: "14pt",
-              transform: "translateX(5%)",
-              fontStyle: "sans-serif",
-            }}>
-            Already have an account?
-            <a
-              href="signin"
-              style={{
-                paddingLeft: "5pt",
-                color: "#FF4500",
-                textDecoration: "none",
-                fontSize: "14pt",
-              }}>
-              Sign In
-            </a>
+        
             {message ? (
               <h3 align="center">{message}</h3>
             ) : (
               <h3 align="center">{error}</h3>
             )}
-          </p>
+          
         </div>
       </div>
     </div>

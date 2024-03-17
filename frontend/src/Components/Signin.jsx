@@ -20,7 +20,7 @@ export default function Signin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get(
+      const response = await axios.post(
         "http://localhost:2014/users/login",
         formData
       );
@@ -55,8 +55,10 @@ export default function Signin() {
           width: "500px",
           marginRight: "10%",
           borderRadius: "20pt",
-          marginTop: "-10px",
-          padding: "30pt",
+          // marginTop: "20%",
+          padding: "29pt",
+          height: "85%",
+          transform: "translateY(0%)",
         }}>
         <h3
           align="center"
@@ -64,7 +66,7 @@ export default function Signin() {
             fontSize: "30pt",
             fontWeight: "bold",
             fontFamily: "sans-serif",
-            marginTop: "-15px",
+            marginTop: "3%",
           }}>
           Sign In
         </h3>
@@ -73,7 +75,7 @@ export default function Signin() {
           className="forgot"
           to="/s"
           style={{
-            marginTop: "17pt",
+            marginTop: "10pt",
             textAlign: "center",
             fontSize: "15pt",
             color: "black",
@@ -83,8 +85,8 @@ export default function Signin() {
             border: "1px solid black",
             borderRadius: "5pt",
             padding: "8pt",
-            transform: "translateX(5%)",
-            width: "80%",
+            transform: "translateX(-0%)",
+            width: "90%",
           }}>
           📱Sign In with Mobile
         </Link>
@@ -103,7 +105,7 @@ export default function Signin() {
             transform: "translateX(-4%)",
             width: "100%",
           }}>
-          -------------------- or ----------------------
+          -------------------------------- or -------------------------------
         </p>
         <div className="input-wrapper">
           <form onSubmit={handleSubmit}>
@@ -120,7 +122,7 @@ export default function Signin() {
             <input
               type="email"
               id="email"
-              className="input"
+              className="inputemail"
               value={formData.email}
               onChange={handleChange}
               required
@@ -130,7 +132,8 @@ export default function Signin() {
                 borderRadius: "5pt",
                 padding: "12pt",
                 transform: "translateX(-11px)",
-                width: "94%",
+                width: "30rem",
+                height: "3rem",
               }}
             />
             <br />
@@ -147,7 +150,7 @@ export default function Signin() {
             <input
               type="password"
               id="password"
-              className="input"
+              className="inputpassword"
               value={formData.password}
               onChange={handleChange}
               required
@@ -158,6 +161,7 @@ export default function Signin() {
                 padding: "12pt",
                 transform: "translateX(-11px)",
                 width: "94%",
+                height: "3rem",
               }}
             />
             <br />
@@ -170,6 +174,7 @@ export default function Signin() {
                 left: "50%",
                 paddingLeft: "117pt",
                 fontFamily: "sans-serif",
+                transform: "translateX(100%)",
               }}>
               Forgot Password?
             </Link>
