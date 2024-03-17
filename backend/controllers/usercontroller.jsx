@@ -1,7 +1,9 @@
 const user = require("../models/customer.jsx");
 const pending = require("../models/PendingModel.jsx");
 const loan = require("../models/LoanModel.jsx");
-
+const bcrypt = require("bcrypt");
+const salt = bcrypt.genSaltSync(10);
+const secret = "ABCD";
 const viewbyemail = async (request, response) => {
   try {
     const email = request.params.email;

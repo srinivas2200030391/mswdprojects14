@@ -1,9 +1,9 @@
 import React from "react";
 import { Box, useTheme } from "@mui/material";
-import { useGetAdminsQuery } from "../../state/api";
+import { useGetAdminsQuery } from "../../state1/api";
 import { DataGrid } from "@mui/x-data-grid";
-import Header from "../../DashComponents/Header";
-import CustomColumnMenu from "../../DashComponents/DataGridCustomColumnMenu.jsx";
+import Header from "../../DashComponents1/Header";
+import CustomColumnMenu from "../../DashComponents1/DataGridCustomColumnMenu.jsx";
 
 const Admin = () => {
   const theme = useTheme();

@@ -4,12 +4,13 @@ const pending = require("../models/PendingModel.jsx");
 const reject = require("../models/RejectedModel.jsx");
 const loan = require("../models/LoanModel.jsx");
 
-const viewusers = async (request, response) => {
+const viewusers = async (req, res) => {
   try {
-    const data = await user.find({});
-    response.send(data);
+    const customers = await user.find({}).select("-password");
+    console.log(customers);
+    res.status(200).json(customers);
   } catch (error) {
-    console.log(error.message);
+    res.status(404).json({ message: error.message });
   }
 };
 

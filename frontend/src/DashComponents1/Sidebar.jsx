@@ -17,7 +17,7 @@ import {
   ChevronLeft,
   ChevronRightOutlined,
   HomeOutlined,
-  ShoppingCartOutlined,
+  AccessTime,
   Groups2Outlined,
   ReceiptLongOutlined,
   PublicOutlined,
@@ -43,8 +43,8 @@ const navItems = [
     icon: null,
   },
   {
-    text: "Products",
-    icon: <ShoppingCartOutlined />,
+    text: "Pending",
+    icon: <AccessTime />,
   },
   {
     text: "Customers",
@@ -131,7 +131,7 @@ const Sidebar = ({
               <FlexBetween color={theme.palette.secondary.main}>
                 <Box display="flex" alignItems="center" gap="0.5rem">
                   <Typography variant="h4" fontWeight="bold">
-                    ECOMVISION
+                    B&F
                   </Typography>
                 </Box>
                 {!isNonMobile && (
@@ -175,7 +175,7 @@ const Sidebar = ({
                         fontSize: "0.9rem", // Reduced font size
                       }}
                       onClick={() => {
-                        navigate(`/user-dashboard/${lcText}`);
+                        navigate(`/admin-dashboard/${lcText}`);
                         setActive(lcText);
                       }}>
                       <span

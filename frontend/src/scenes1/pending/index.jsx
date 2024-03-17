@@ -7,12 +7,14 @@ import Button from "@mui/material/Button";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const Customers = () => {
+const pending = () => {
   const theme = useTheme();
   const [data, setData] = useState([]);
   const axiosData = async () => {
     try {
-      const response = await axios.get("http://localhost:2014/admin/viewusers");
+      const response = await axios.get(
+        "http://localhost:2014/admin/viewpending"
+      );
       console.log(response.data);
       setData(response.data);
     } catch (e) {
@@ -25,8 +27,19 @@ const Customers = () => {
 
   const deleteusers = async (id) => {
     try {
-      const response = await axios.delete(
-        `http://localhost:2014/admin/deleteusers/${id}`
+      const response = await axios.post(
+        `http://localhost:2014/admin/rejectusers/${id}`
+      );
+      axiosData();
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+  const acceptusers = async (id) => {
+    try {
+      console.log(id);
+      const response = await axios.post(
+        `http://localhost:2014/admin/acceptusers/${id}`
       );
       axiosData();
     } catch (e) {
@@ -83,16 +96,16 @@ const Customers = () => {
             variant="contained"
             color="primary"
             size="small"
-            onClick={() => handleUpdate(params.row)}>
-            Update
+            onClick={() => acceptusers(params.row.accountnumber)}>
+            Accept
           </Button>
           <Button
             variant="contained"
             color="secondary"
             size="small"
-            onClick={() => deleteusers(params.row._id)}
+            onClick={() => deleteusers(params.row.accountnumber)}
             style={{ marginLeft: "8px" }}>
-            Delete
+            Reject
           </Button>
         </div>
       ),
@@ -101,7 +114,7 @@ const Customers = () => {
 
   return (
     <Box m="1.5rem 2.5rem">
-      <Header title="Bankers" subtitle="List of Bankers" />
+      <Header title="Pending Users" subtitle="List of Pending Users" />
       <Box
         mt="40px"
         height="75vh"
@@ -139,4 +152,4 @@ const Customers = () => {
   );
 };
 
-export default Customers;
+export default pending;

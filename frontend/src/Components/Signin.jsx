@@ -133,7 +133,7 @@ export default function Signin() {
               required
               style={{
                 border: "1px solid black",
-                height: "8pt",
+
                 borderRadius: "5pt",
                 padding: "12pt",
                 transform: "translateX(-11px)",
@@ -161,7 +161,6 @@ export default function Signin() {
               required
               style={{
                 border: "1px solid black",
-                height: "8pt",
                 borderRadius: "5pt",
                 padding: "12pt",
                 transform: "translateX(-11px)",

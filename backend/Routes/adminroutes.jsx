@@ -7,4 +7,5 @@ response.post("/rejectusers/:id", admins.rejectusers);
 response.post("/acceptrejectedusers/:id", admins.acceptrejectedusers);
 response.get("/viewpending", admins.viewpending);
 response.post("/createloan", admins.createLoan);
+response.delete("/deleteusers/:id", admins.deleteusers);
 module.exports = response;

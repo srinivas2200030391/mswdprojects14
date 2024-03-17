@@ -7,7 +7,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { themeSettings } from "./theme";
 import Layout from "./scenes1/layout";
 import Dashboard from "./scenes1/dashboard";
-import Products from "./scenes1/products";
+import Pending from "./scenes1/pending";
 import Customers from "./scenes1/customers/index";
 import Transactions from "./scenes1/transactions";
 import Geography from "./scenes1/geography";
@@ -28,7 +28,7 @@ function AdminDashboard() {
         <Routes>
           <Route element={<Layout />}>
             <Route path="/dashboard/*" element={<Dashboard />} />
-            <Route path="/products" element={<Products />} />
+            <Route path="/pending" element={<Pending />} />
             <Route path="/customers" element={<Customers />} />
             <Route path="/transactions" element={<Transactions />} />
             <Route path="/geography" element={<Geography />} />

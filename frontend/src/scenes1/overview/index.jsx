@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FormControl, MenuItem, InputLabel, Box, Select } from "@mui/material";
-import Header from "../../DashComponents/Header";
-import OverviewChart from "../../DashComponents/OverviewChart";
+import Header from "../../DashComponents1/Header";
+import OverviewChart from "../../DashComponents1/OverviewChart";
 
 const Overview = () => {
   const [view, setView] = useState("units");

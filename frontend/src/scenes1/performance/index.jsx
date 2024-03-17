@@ -1,10 +1,10 @@
 import React from "react";
 import { Box, useTheme } from "@mui/material";
-import { useGetUserPerformanceQuery } from "../../state/api";
+import { useGetUserPerformanceQuery } from "../../state1/api";
 import { useSelector } from "react-redux";
 import { DataGrid } from "@mui/x-data-grid";
-import Header from "../../DashComponents/Header";
-import CustomColumnMenu from "../../DashComponents/DataGridCustomColumnMenu";
+import Header from "../../DashComponents1/Header";
+import CustomColumnMenu from "../../DashComponents1/DataGridCustomColumnMenu";
 
 const Performance = () => {
   const theme = useTheme();
