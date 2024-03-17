@@ -12,7 +12,7 @@ const viewbyemail = async (request, response) => {
       response.send(data);
     }
   } catch (error) {
-    response.status(500).send("hello");
+    response.status(500).send(error.message);
   }
 };
 const generateAccountNumber = () => {
@@ -163,10 +163,10 @@ const viewloans = async (request, response) => {
     const data = await loan.find();
     if (!data) return response.status(404).send("No Loan Found!");
     else {
-      response.send(data);
+      response.json(data);
     }
   } catch (error) {
-    response.status(500).send("hello");
+    response.status(500).send(error.message);
   }
 };
 
