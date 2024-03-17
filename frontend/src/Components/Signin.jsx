@@ -21,14 +21,19 @@ export default function Signin() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:2014/users/login",
+        "http://localhost:2014/login",
         formData
       );
       if (response) {
-        console.log(response.data);
-        navigate("/user-dashboard/dashboard", {
-          state: { email: formData.email },
-        });
+        if (response.data === "User") {
+          navigate("/user-dashboard/dashboard", {
+            state: { email: formData.email },
+          });
+        } else if (response.data === "Admin") {
+          navigate("/admin-dashboard/dashboard", {
+            state: { email: formData.email },
+          });
+        }
       } else {
         setMessage("Sign In Failed");
       }
@@ -174,7 +179,8 @@ export default function Signin() {
                 left: "50%",
                 paddingLeft: "117pt",
                 fontFamily: "sans-serif",
-                transform: "translateX(100%)",
+                // move it to right
+                transform: "translateX(0%)",
               }}>
               Forgot Password?
             </Link>
@@ -190,6 +196,7 @@ export default function Signin() {
                 fontFamily: "sans-serif",
                 border: "0.5px solid black",
                 borderRadius: "15pt",
+                width: "95%",
                 transform: "translateX(-2%)",
                 backgroundColor: "#D6C9C9",
               }}
@@ -203,7 +210,7 @@ export default function Signin() {
               paddingTop: "10pt",
 
               fontSize: "14pt",
-              transform: "translateX(5%)",
+              transform: "translateX(0%)",
               fontStyle: "sans-serif",
             }}>
             Don't have an account?
@@ -218,9 +225,21 @@ export default function Signin() {
               Sign Up
             </a>
             {message ? (
-              <h3 align="center">{message}</h3>
+              <h3
+                align="center"
+                style={{
+                  transform: "translateX(0%)",
+                }}>
+                {message}
+              </h3>
             ) : (
-              <h3 align="center">{error}</h3>
+              <h3
+                align="center"
+                style={{
+                  transform: "translateX(0%)",
+                }}>
+                {error}
+              </h3>
             )}
           </p>
         </div>

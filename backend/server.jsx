@@ -1,6 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const bcrypt = require("bcrypt");
+const salt = bcrypt.genSaltSync(10);
+const secret = "ABCD";
 const userRoutes = require("./Routes/userroutes.jsx");
 const adminRoutes = require("./Routes/adminroutes.jsx");
 const bodyParser = require("body-parser");
@@ -55,7 +58,6 @@ const login = async (request, response) => {
         role = "Admin";
       }
     }
-    console.log(Object.values(data));
     if (data) {
       const p = bcrypt.compareSync(
         password,
@@ -75,6 +77,7 @@ const login = async (request, response) => {
     response.status(500).send(error.message);
   }
 };
+app.post("/login", login);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
