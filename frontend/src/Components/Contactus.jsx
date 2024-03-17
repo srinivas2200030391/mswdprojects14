@@ -14,13 +14,28 @@ const Contactus = () => {
           Contact Us
         </p>
         <br />
-        <form align="center" className="form" onSubmit={getemail} style={{width:'82%'}}>
+        <form
+          align="center"
+          className="form"
+          onSubmit={getemail}
+          style={{
+            width: "82%",
+            height: "55%",
+            marginTop: "10pt",
+          }}>
           <input
             type="text"
             className="form-control1"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             placeholder="Subject"
+            style={{
+              width: "100%",
+              margin: "auto",
+              padding: "20px",
+              borderRadius: "10px",
+              marginTop: "3%",
+            }}
           />
           <input
             type="text"
@@ -28,6 +43,13 @@ const Contactus = () => {
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             placeholder="Enter Name"
+            style={{
+              width: "100%",
+              margin: "auto",
+              padding: "20px",
+              borderRadius: "10px",
+              marginTop: "3%",
+            }}
           />
 
           <input
@@ -36,8 +58,15 @@ const Contactus = () => {
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             placeholder="Enter email"
+            style={{
+              width: "100%",
+              margin: "auto",
+              padding: "20px",
+              borderRadius: "10px",
+              marginTop: "3%",
+            }}
           />
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Submit" style={{ marginTop: "3%" }} />
         </form>
       </div>
     </div>

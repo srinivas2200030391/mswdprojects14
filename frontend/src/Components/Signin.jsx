@@ -57,7 +57,7 @@ export default function Signin() {
           borderRadius: "20pt",
           // marginTop: "20%",
           padding: "29pt",
-          height: "85%",
+          height: "80%",
           transform: "translateY(0%)",
         }}>
         <h3
@@ -66,7 +66,7 @@ export default function Signin() {
             fontSize: "30pt",
             fontWeight: "bold",
             fontFamily: "sans-serif",
-            marginTop: "3%",
+            marginTop: "-1%",
           }}>
           Sign In
         </h3>

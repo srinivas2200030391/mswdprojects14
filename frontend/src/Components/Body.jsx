@@ -32,6 +32,10 @@ const Body = () => {
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            style={{
+              marginTop: "10px",
+            
+            }}
           />
           <input type="submit" value="Sign In" style={{ cursor: "pointer" }} />
         </div>

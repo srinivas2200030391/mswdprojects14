@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./signup.css";
-import axios from 'axios';
+import axios from "axios";
 
 export default function Signin() {
   const [formData, setFormData] = useState({
     username: "",
-    fullname:"",
+    fullname: "",
     age: "",
     gender: "",
     phone: "",
@@ -25,12 +25,15 @@ export default function Signin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:2014/users/createuser", formData);
+      const response = await axios.post(
+        "http://localhost:2014/users/createuser",
+        formData
+      );
       if (response.data != null) {
         console.log(response);
         setFormData({
           username: "",
-          fullname:"",
+          fullname: "",
           age: "",
           gender: "",
           phone: "",
@@ -38,7 +41,6 @@ export default function Signin() {
           password: "",
           aadhar: "",
         });
-
       } else {
         setMessage("Sign In Failed");
       }
@@ -47,71 +49,85 @@ export default function Signin() {
       setMessage("");
     }
   };
-  const aadharnumber = (e)=>{
-    const aadhar = e.target.value
-    if(aadhar.length!==12)
-    {
-      document.getElementById("message2").innerHTML="Aadhar Number must be 12 digits"
+  const aadharnumber = (e) => {
+    const aadhar = e.target.value;
+    if (aadhar.length !== 12) {
+      document.getElementById("message2").innerHTML =
+        "Aadhar Number must be 12 digits";
+    } else {
+      document.getElementById("message2").innerHTML = "";
     }
-    else{
-      document.getElementById("message2").innerHTML=""
+  };
+  const passwordvalidation = (e) => {
+    const password = e.target.value;
+    const validatepass =
+      /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    if (!validatepass.test(password)) {
+      document.getElementById("passmessage").innerHTML =
+        "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character.";
+    } else {
+      document.getElementById("passmessage").innerHTML = "";
     }
-
-  }
-  const passwordvalidation = (e)=>{
-    const password = e.target.value
-    const validatepass = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-    if(!validatepass.test(password))
-    {
-      document.getElementById("passmessage").innerHTML="Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character."
+  };
+  const agevalidation = (e) => {
+    const age = e.target.value;
+    if (age <= 18) {
+      document.getElementById("message1").innerHTML =
+        "Only above 18 candidates can create an account";
+    } else {
+      document.getElementById("message1").innerHTML = "";
     }
-    else
-    {
-      document.getElementById("passmessage").innerHTML=""
+  };
+  const mobilenumber = (e) => {
+    const mobile = e.target.value;
+    if (mobile.length < 10 && mobile.length > 13) {
+      document.getElementById("phone1").innerHTML =
+        "Mobile Number should be 10 digits";
+    } else {
+      document.getElementById("phone").innerHTML = "";
     }
-  }
-  const agevalidation = (e)=>{
-    const age = e.target.value
-    if(age<=18)
-    {
-      document.getElementById("message1").innerHTML="Only above 18 candidates can create an account"
-    }
-    else
-    {
-      document.getElementById("message1").innerHTML=""
-    }
-
-  }
-  const mobilenumber = (e)=>{
-    const mobile = e.target.value
-    if(mobile.length!=10)
-    {
-      document.getElementById("phone1").innerHTML="Mobile Number should be 10 digits"
-    }
-    else
-    {
-      document.getElementById("phone").innerHTML=""
-    }
-  }
-  const changetext = (e)=>{
-    const fullname = e.target.value
-    const uppercase = fullname.toUpperCase()
-    e.target.value = uppercase
-  }
+  };
+  const changetext = (e) => {
+    const fullname = e.target.value;
+    const uppercase = fullname.toUpperCase();
+    e.target.value = uppercase;
+  };
 
   return (
-    <div className="signuppage">
-      <div className="image" style={{ float: "left", width: "50%",transform:"translateY(30%) translateX(-10%)" }}>
+    <div
+      className="signuppage"
+      style={{
+        backgroundColor: "#eee8e8",
+        height: "120vh",
+      }}>
+      <div
+        className="image"
+        style={{
+          float: "left",
+          width: "31%",
+          marginTop: "30pt",
+          transform: "translateY(80%) translateX(10%)",
+        }}>
         <img src="image2.png" alt="Photo" />
       </div>
-      <div className="form" style={{ float: "right",transform:"translateX(-1%) translateY(5%)" }}>
-        <h3 style={{fontSize:"34px"}}>Sign Up</h3>
+      <div
+        className="form"
+        style={{
+          float: "right",
+          transform: "translateX(-10%) translateY(2%)",
+          backgroundColor: "white",
+          height: "80%",
+          borderRadius: "20pt",
+        }}>
+        <h3 style={{ fontSize: "34px", transform: "translateY(50%)" }}>
+          Sign Up
+        </h3>
         <br />
         <Link
           className="forgot"
           to="/s"
           style={{
-            marginTop: "17pt",
+            marginTop: "25pt",
             textAlign: "center",
             fontSize: "15pt",
             color: "black",
@@ -130,7 +146,7 @@ export default function Signin() {
         <br />
         <p
           style={{
-            marginTop: "-10pt",
+            marginTop: "-7%",
             textAlign: "center",
             fontSize: "15pt",
             color: "black",
@@ -145,9 +161,11 @@ export default function Signin() {
         </p>
         <div className="input-wrapper">
           <form onSubmit={handleSubmit}>
-            <div className="row">
+            <div className="row" style={{ transform: "translateX(-10px)" }}>
               <div className="column">
-                <label>FullName</label>
+                <label style={{ transform: "translateX(10pt)" }}>
+                  FullName
+                </label>
                 <input
                   type="text"
                   id="fullname"
@@ -158,7 +176,7 @@ export default function Signin() {
                 />
               </div>
               <div className="column">
-                <label>Age</label>
+                <label style={{ transform: "translateX(10pt)" }}>Age</label>
                 <input
                   type="number"
                   id="age"
@@ -167,7 +185,7 @@ export default function Signin() {
                   onKeyUp={agevalidation}
                   required
                 />
-                <i id='message1'></i>
+                <i id="message1"></i>
               </div>
             </div>
 
@@ -211,7 +229,7 @@ export default function Signin() {
                   onKeyUp={mobilenumber}
                   required
                 />
-                <i id='phone1'></i>
+                <i id="phone1"></i>
               </div>
               <div className="column">
                 <label>Username</label>
@@ -222,7 +240,7 @@ export default function Signin() {
                   onChange={handleChange}
                   required
                 />
-            </div>
+              </div>
             </div>
 
             <div className="row">
@@ -246,28 +264,34 @@ export default function Signin() {
                   onKeyUp={passwordvalidation}
                   required
                 />
-                 <i id="passmessage"></i>
+                <i id="passmessage"></i>
               </div>
             </div>
 
             <div className="button-container">
-              <button type="submit" disabled={!formData} className="button-18 ">
+              <button
+                type="submit"
+                disabled={!formData}
+                className="button-18 "
+                style={{
+                  backgroundColor: "rgba(208, 90, 16, 0.897)",
+                  borderRadius: "90px",
+                }}>
                 Get Started →
               </button>
             </div>
 
-            <div className="signin-container">
+            <div className="signin-container" style={{ fontSize: "15pt" }}>
               <p>Already have an account?</p>
               <Link to="/signin">Sign In</Link>
             </div>
           </form>
-        
-            {message ? (
-              <h3 align="center">{message}</h3>
-            ) : (
-              <h3 align="center">{error}</h3>
-            )}
-          
+
+          {message ? (
+            <h3 align="center">{message}</h3>
+          ) : (
+            <h3 align="center">{error}</h3>
+          )}
         </div>
       </div>
     </div>

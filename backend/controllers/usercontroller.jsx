@@ -1,9 +1,6 @@
 const user = require("../models/customer.jsx");
-const admin = require("../models/Admin.jsx");
-const bcrypt = require("bcrypt");
-const salt = bcrypt.genSaltSync(10);
-const secret = bcrypt.hashSync("BA/4789adfafadfafa", salt);
-const jwt = require("jsonwebtoken");
+const pending = require("../models/PendingModel.jsx");
+const loan = require("../models/LoanModel.jsx");
 
 const viewbyemail = async (request, response) => {
   try {
@@ -18,25 +15,25 @@ const viewbyemail = async (request, response) => {
     response.status(500).send("hello");
   }
 };
-const generateAccountNumber = ()=>{
-  const accountnumber = Math.floor(100000000000 +Math.random()*900000000000).toString();
-  return accountnumber
-}
+const generateAccountNumber = () => {
+  const accountnumber = Math.floor(
+    100000000000 + Math.random() * 900000000000
+  ).toString();
+  return accountnumber;
+};
 const create = async (request, response) => {
   try {
     const s = await request.body;
-    const password =  bcrypt.hashSync(s["password"], salt);
+    const password = bcrypt.hashSync(s["password"], salt);
     s["password"] = password;
     const account_number = generateAccountNumber();
     console.log(s);
-    const userData = {...s,accountnumber:account_number}
-    const users = new user(userData);
+    const userData = { ...s, accountnumber: account_number };
+    const users = new pending(userData);
     await users.save();
-    response.send("Registered Successfully")
+    response.send("Registered Successfully");
     response.status(201).json({
       msg: users,
-      // token: users.methods.generateToken(),
-      // userId: users._id.toString(),
     });
   } catch (error) {
     console.log(error.message);
@@ -77,41 +74,27 @@ const create = async (request, response) => {
 //     response.status(500).send(error.message);
 //   }
 // };
-const login = async (request, response) => {
-  try {
-    const { email, password } = request.body;
-    
-    let data = await user.findOne({ email });
-    
-    if (data) {
-      const isPasswordValid = bcrypt.compareSync(password, data.password);
-      if (isPasswordValid) {
-        console.log("Successful");
-        response.json("Login successful");
-      } else {
-        response.status(401).send("Invalid email or password");
-      }
-    } else {
-      response.status(401).send("Invalid email or password");
-    }
-  } catch (error) {
-    response.status(500).send(error.message);
-  }
-};
+// const login = async (request, response) => {
+//   try {
+//     const { email, password } = request.body;
 
+//     let data = await user.findOne({ email });
 
-// const login = async (request,response)=>{
-//   try{
-//       const input = request.body
-//       console.log(input)
-//       const users = await user.findOne(input)
-//       response.json(users)
+//     if (data) {
+//       const isPasswordValid = bcrypt.compareSync(password, data.password);
+//       if (isPasswordValid) {
+//         console.log("Successful");
+//         response.json("Login successful");
+//       } else {
+//         response.status(401).send("Invalid email or password");
+//       }
+//     } else {
+//       response.status(401).send("Invalid email or password");
+//     }
+//   } catch (error) {
+//     response.status(500).send(error.message);
 //   }
-//   catch(e)
-//   {
-//       response.status(500).send(e.message)
-//   }
-// }
+// };
 
 const editusers = async (request, response) => {
   try {
@@ -175,9 +158,21 @@ const Withdrawl = async (request, response) => {
   }
 };
 
+const viewloans = async (request, response) => {
+  try {
+    const data = await loan.find();
+    if (!data) return response.status(404).send("No Loan Found!");
+    else {
+      response.send(data);
+    }
+  } catch (error) {
+    response.status(500).send("hello");
+  }
+};
+
 module.exports = {
   create,
-  login,
+  viewloans,
   viewbyemail,
   editusers,
   deleteusers,

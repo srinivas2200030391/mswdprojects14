@@ -38,8 +38,9 @@
   background-color: rgb(237, 208, 39);
   cursor: pointer;
   width: 99%;
-  transform: translateX(-0.3%);
+  transform: translateX(-1.5%);
   font-weight: bold;
+  width: 100%;
 }
 
 .rights {
@@ -51,6 +52,6 @@
   background-color: rgb(30, 27, 27);
 }
 
-.form-control1.form-control2.form-control3{
+.form-control1.form-control2.form-control3 {
   height: 34%;
 }

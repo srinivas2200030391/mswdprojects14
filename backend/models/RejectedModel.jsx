@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
-const UserSchema = new mongoose.Schema({
+const RejectedSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
@@ -58,6 +58,6 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-const UserModel = mongoose.model("User", UserSchema);
+const RejectedModel = mongoose.model("Rejected", RejectedSchema);
 
-module.exports = UserModel;
+module.exports = RejectedModel;
