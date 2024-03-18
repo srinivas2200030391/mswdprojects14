@@ -9,7 +9,7 @@ import {
 } from "@mui/icons-material";
 import FlexBetween from "./FlexBetween";
 import { useDispatch } from "react-redux";
-import { setMode } from "../state/index";
+import { setMode } from "../state1/index";
 import profileImage from "../assets/profile.jpeg";
 import {
   AppBar,
@@ -51,7 +51,14 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
             borderRadius="9px"
             gap="3rem"
             p="0.1rem 1.5rem">
-            <InputBase placeholder="Search..." />
+            <input
+              placeholder="Search..."
+              style={{
+                backgroundColor: `${theme.palette.background.alt}`,
+                border: "none",
+                outline: "none",
+              }}
+            />
             <IconButton>
               <Search />
             </IconButton>

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import "./style.css";
 import { Link, NavLink } from "react-router-dom";
 
@@ -11,7 +10,6 @@ const NavBar = () => {
       <Link to="/">
         <img src="Blogo.svg" className="logo" />
       </Link>
-
       <div className="menu btn2" onClick={() => setMenuOpen(!menuOpen)}>
         <span className="line line1"></span>
         <span className="line line2"></span>

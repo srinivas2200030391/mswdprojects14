@@ -3,14 +3,14 @@ import React from "react";
 import { createTheme } from "@mui/material/styles";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { themeSettings } from "./theme";
 import Layout from "./scenes/layout";
 import Dashboard from "./scenes/dashboard";
 import Products from "./scenes/products";
-import Customers from "./scenes/customers/index";
+import Profile from "./scenes/profile/index";
 import Transactions from "./scenes/transactions";
-import Geography from "./scenes/geography";
+import Transfer from "./scenes/transfer";
 import Overview from "./scenes/overview";
 import Daily from "./scenes/daily";
 import Monthly from "./scenes/monthly";
@@ -21,6 +21,8 @@ import Performance from "./scenes/performance";
 function UserDashboard() {
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+  const location = useLocation();
+  const userEmail = location.state?.email || "";
   return (
     <div className="app">
       <ThemeProvider theme={theme}>
@@ -29,9 +31,9 @@ function UserDashboard() {
           <Route element={<Layout />}>
             <Route path="/dashboard/*" element={<Dashboard />} />
             <Route path="/products" element={<Products />} />
-            <Route path="/customers" element={<Customers />} />
+            <Route path="/profile" element={<Profile email={userEmail} />} />
             <Route path="/transactions" element={<Transactions />} />
-            <Route path="/geography" element={<Geography />} />
+            <Route path="/transfer" element={<Transfer />} />
             <Route path="/overview" element={<Overview />} />
             <Route path="/daily" element={<Daily />} />
             <Route path="/monthly" element={<Monthly />} />

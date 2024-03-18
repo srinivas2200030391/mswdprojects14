@@ -3,20 +3,9 @@ const pending = require("../models/PendingModel.jsx");
 const loan = require("../models/LoanModel.jsx");
 const bcrypt = require("bcrypt");
 const salt = bcrypt.genSaltSync(10);
-const secret = "ABCD";
-const viewbyemail = async (request, response) => {
-  try {
-    const email = request.params.email;
-    console.log(email);
-    const data = await user.find({ email: email });
-    if (!data) return response.status(404).send("No User Found!");
-    else {
-      response.send(data);
-    }
-  } catch (error) {
-    response.status(500).send(error.message);
-  }
-};
+const secret = bcrypt.hashSync("BA/4789adfafadfafa", salt);
+const jwt = require("jsonwebtoken");
+
 const generateAccountNumber = () => {
   const accountnumber = Math.floor(
     100000000000 + Math.random() * 900000000000
@@ -40,63 +29,31 @@ const create = async (request, response) => {
   } catch (error) {
     console.log(error.message);
   }
+}; //working
+
+const viewcustomers = async (request, response) => {
+  try {
+    const customer = await user.find();
+    if (customer.length == 0) {
+      response.send("DATA NOT FOUND");
+    } else {
+      response.json(customer);
+    }
+  } catch (e) {
+    response.status(500).send(e.message);
+  }
 };
-// const login = async (request, response) => {
-//   try {
-//     const s = await request.body;
-//     console.log(s);
-//     console.log(Object.values(s)[0]);
-//     const id = Object.values(s)[0];
-//     const password = Object.values(s)[1];
-//     let data = await user.find({ email: id });
-//     var role = "user";
-//     if (!data) {
-//       data = await admin.find({ email: id });
-//       if (data) {
-//         role = "admin";
-//       }
-//     }
-//     if (data) {
-//       const p = bcrypt.compareSync(
-//         password,
-//         Object.values(data)[0]["password"]
-//       );
-//       if (p) {
-//         console.log("Successful");
-//         jwt.sign({ id, id: data._id }, secret, {}, (err, token) => {
-//           if (err) throw err;
-//           console.log(token);
-//           response.cookie("token", token).json(role);
-//         });
-//       }
-//     } else {
-//       response.status(500).send("Invalid Credentials");
-//     }
-//   } catch (error) {
-//     response.status(500).send(error.message);
-//   }
-// };
-// const login = async (request, response) => {
-//   try {
-//     const { email, password } = request.body;
 
-//     let data = await user.findOne({ email });
-
-//     if (data) {
-//       const isPasswordValid = bcrypt.compareSync(password, data.password);
-//       if (isPasswordValid) {
-//         console.log("Successful");
-//         response.json("Login successful");
-//       } else {
-//         response.status(401).send("Invalid email or password");
-//       }
-//     } else {
-//       response.status(401).send("Invalid email or password");
-//     }
-//   } catch (error) {
-//     response.status(500).send(error.message);
-//   }
-// };
+const getuserbyusername = async (request, response) => {
+  try {
+    const username = request.params.username;
+    console.log(username);
+    const input = await user.find({ username });
+    return input;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 const editusers = async (request, response) => {
   try {
@@ -175,7 +132,8 @@ const viewloans = async (request, response) => {
 module.exports = {
   create,
   viewloans,
-  viewbyemail,
+  viewcustomers,
+  getuserbyusername,
   editusers,
   deleteusers,
   Credit,

@@ -300,8 +300,7 @@ a.forgot {
   font-size: 90%;
 }
 
-*/
- .signuppage {
+*/ .signuppage {
   display: flex;
   align-items: center;
   justify-content: space-between;

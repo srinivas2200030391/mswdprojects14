@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import "./signin.css";
 import axios from "axios";
+
 export default function Signin() {
-  const location = useLocation();
+
 
   const [formData, setFormData] = useState({
     email: location.state ? location.state.email : "",

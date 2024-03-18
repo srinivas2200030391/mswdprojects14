@@ -1,8 +1,11 @@
 const express = require("express");
 const response = express.Router();
 const users = require("../controllers/usercontroller.jsx");
-response.get("/viewusers/:email", users.viewbyemail);
+
 response.post("/createuser", users.create);
+response.get("/viewcustomers", users.viewcustomers);
+// response.get("/view/:email", users.viewbyemail);
+response.get("/user/:username", users.getuserbyusername);
 response.delete("/delete/:id", users.deleteusers);
 response.get("/viewloans", users.viewloans);
 response.put("/Credit/", users.Credit);

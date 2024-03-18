@@ -34,10 +34,13 @@ const Body = () => {
             onChange={(e) => setEmail(e.target.value)}
             style={{
               marginTop: "10px",
-            
             }}
           />
-          <input type="submit" value="Sign In" style={{ cursor: "pointer" }} />
+          <input
+            type="submit"
+            value="Sign In"
+            style={{ cursor: "pointer", width: "80pt" }}
+          />
         </div>
       </form>
       <br />

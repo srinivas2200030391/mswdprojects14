@@ -47,7 +47,7 @@ const navItems = [
     icon: <ShoppingCartOutlined />,
   },
   {
-    text: "Customers",
+    text: "Profile",
     icon: <Groups2Outlined />,
   },
   {
@@ -55,7 +55,7 @@ const navItems = [
     icon: <ReceiptLongOutlined />,
   },
   {
-    text: "Geography",
+    text: "Transfer",
     icon: <PublicOutlined />,
   },
   {
@@ -131,7 +131,7 @@ const Sidebar = ({
               <FlexBetween color={theme.palette.secondary.main}>
                 <Box display="flex" alignItems="center" gap="0.5rem">
                   <Typography variant="h4" fontWeight="bold">
-                    ECOMVISION
+                    BF Bank
                   </Typography>
                 </Box>
                 {!isNonMobile && (
