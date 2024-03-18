@@ -3,10 +3,16 @@ import { Box, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import Header from "../../DashComponents/Header";
 import axios from 'axios';
+import DataGridCustomToolbar from "../../DashComponents/DataGridCustomToolbar";
 
 const Customers = () => {
   const theme = useTheme();
+  const [page, setPage] = useState(0);
+  const [pageSize, setPageSize] = useState(20);
+  const [sort, setSort] = useState({});
+  const [search, setSearch] = useState("");
   const [customers, setCustomers] = useState([]);
+
   console.log("customers", customers);
 
   const fetchCustomers = async () => {
@@ -71,6 +77,8 @@ const Customers = () => {
       flex: 1,
     },
   ];
+  const [searchInput, setSearchInput] = useState("");
+
 
   return (
     <Box m="1.5rem 2.5rem">
@@ -103,6 +111,19 @@ const Customers = () => {
           },
         }}>
         <DataGrid
+        getRowId={(row) => row._id}
+
+        rowsPerPageOptions={[20, 50, 100]}
+        pagination
+        page={page}
+        pageSize={pageSize}
+       
+        sortingMode="server"
+        onPageChange={(newPage) => setPage(newPage)}
+        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+        onSortModelChange={(newSortModel) => setSort(...newSortModel)}
+        components={{ Toolbar: DataGridCustomToolbar }}
+        componentsProps={{ toolbar: { searchInput, setSearchInput, setSearch } }}
           loading={!customers.length}
           rows={customers}
           columns={columns}

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; // Import Link from React Router
 import {
   LightModeOutlined,
   DarkModeOutlined,
@@ -40,8 +39,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
         position: "static",
         background: "none",
         boxShadow: "none",
-      }}
-    >
+      }}>
       <Toolbar sx={{ justifyContent: "space-between" }}>
         {/* LEFT SIDE */}
         <FlexBetween>
@@ -52,8 +50,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
             backgroundColor={theme.palette.background.alt}
             borderRadius="9px"
             gap="3rem"
-            p="0.1rem 1.5rem"
-          >
+            p="0.1rem 1.5rem">
             <InputBase placeholder="Search..." />
             <IconButton>
               <Search />
@@ -76,16 +73,14 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
 
           <FlexBetween>
             <Button
-              component={Link} // Use Link component for navigation
-              to="/profile" // Navigate to "/profile" route
+              onClick={handleClick}
               sx={{
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
                 textTransform: "none",
                 gap: "1rem",
-              }}
-            >
+              }}>
               <Box
                 component="img"
                 alt="profile"
@@ -99,14 +94,12 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
                 <Typography
                   fontWeight="bold"
                   fontSize="0.85rem"
-                  sx={{ color: theme.palette.secondary[100] }}
-                >
+                  sx={{ color: theme.palette.secondary[100] }}>
                   {user.name}
                 </Typography>
                 <Typography
-                  fontSize="0.7rem"
-                  sx={{ color: theme.palette.secondary[200] }}
-                >
+                  fontSize="0.75rem"
+                  sx={{ color: theme.palette.secondary[200] }}>
                   {user.occupation}
                 </Typography>
               </Box>
@@ -118,8 +111,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
               anchorEl={anchorEl}
               open={isOpen}
               onClose={handleClose}
-              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-            >
+              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}>
               <MenuItem onClick={handleClose}>Log Out</MenuItem>
             </Menu>
           </FlexBetween>

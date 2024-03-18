@@ -48,6 +48,9 @@ const viewcustomers = async (request,response)=>{
     response.status(500).send(e.message)
   }
 }
+const viewadmins = ()=>{
+  
+}
 // const generateToken = (user) => {
 //   return jwt.sign(user, "secret_key", { expiresIn: "1h" });
 // }
