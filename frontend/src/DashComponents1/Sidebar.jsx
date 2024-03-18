@@ -5,10 +5,6 @@ import {
   Drawer,
   IconButton,
   List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -51,45 +47,28 @@ const navItems = [
     icon: <Groups2Outlined />,
   },
   {
-    text: "Transactions",
+    text: "Rejected",
     icon: <ReceiptLongOutlined />,
   },
-  {
-    text: "Geography",
-    icon: <PublicOutlined />,
-  },
+ 
   {
     text: "Sales",
     icon: null,
   },
   {
-    text: "Overview",
+    text: "Loans",
     icon: <PointOfSaleOutlined />,
   },
   {
-    text: "Daily",
+    text: "AddLoans",
     icon: <TodayOutlined />,
   },
   {
-    text: "Monthly",
+    text: "Applications",
     icon: <CalendarMonthOutlined />,
   },
-  {
-    text: "Breakdown",
-    icon: <PieChartOutlined />,
-  },
-  {
-    text: "Management",
-    icon: null,
-  },
-  {
-    text: "Admin",
-    icon: <AdminPanelSettingsOutlined />,
-  },
-  {
-    text: "Performance",
-    icon: <TrendingUpOutlined />,
-  },
+ 
+ 
 ];
 
 const Sidebar = ({
@@ -149,7 +128,7 @@ const Sidebar = ({
                     return (
                       <Typography
                         key={text}
-                        sx={{ m: "1rem 0 0.5rem 2rem", fontSize: "0.9rem" }}>
+                        sx={{ m: "1rem 0 0.5rem 2rem", fontSize: "1.2rem" }}>
                         {text}
                       </Typography>
                     );
@@ -172,7 +151,7 @@ const Sidebar = ({
                             : theme.palette.secondary[100],
                         padding: "0.25rem 0.75rem", // Reduced padding
                         cursor: "pointer",
-                        fontSize: "0.9rem", // Reduced font size
+                        fontSize: "1rem", // Reduced font size
                       }}
                       onClick={() => {
                         navigate(`/admin-dashboard/${lcText}`);

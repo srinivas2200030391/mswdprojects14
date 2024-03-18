@@ -9,14 +9,10 @@ import Layout from "./scenes1/layout";
 import Dashboard from "./scenes1/dashboard";
 import Pending from "./scenes1/pending";
 import Customers from "./scenes1/customers/index";
-import Transactions from "./scenes1/transactions";
-import Geography from "./scenes1/geography";
-import Overview from "./scenes1/overview";
-import Daily from "./scenes1/daily";
-import Monthly from "./scenes1/monthly";
-import Breakdown from "./scenes1/breakdown";
-import Admin from "./scenes1/admin";
-import Performance from "./scenes1/performance";
+import Rejected from "./scenes1/rejected";
+import Loans from "./scenes1/Loans";
+import AddLoans from "./scenes1/AddLoans";
+import Applications from "./scenes1/Applications";
 
 function AdminDashboard() {
   const mode = useSelector((state) => state.global.mode);
@@ -30,14 +26,10 @@ function AdminDashboard() {
             <Route path="/dashboard/*" element={<Dashboard />} />
             <Route path="/pending" element={<Pending />} />
             <Route path="/customers" element={<Customers />} />
-            <Route path="/transactions" element={<Transactions />} />
-            <Route path="/geography" element={<Geography />} />
-            <Route path="/overview" element={<Overview />} />
-            <Route path="/daily" element={<Daily />} />
-            <Route path="/monthly" element={<Monthly />} />
-            <Route path="/breakdown" element={<Breakdown />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/performance" element={<Performance />} />
+            <Route path="/rejected" element={<Rejected />} />
+            <Route path="/Loans" element={<Loans />} />
+            <Route path="/AddLoans" element={<AddLoans />} />
+            <Route path="/Applications" element={<Applications />} />
           </Route>
         </Routes>
       </ThemeProvider>

@@ -92,6 +92,25 @@ const rejectusers = async (request, response) => {
     response.status(500).send(error.message);
   }
 };
+const viewrejected = async (request, response) => {
+  try {
+    const data = await reject.find({});
+    response.send(data);
+  } catch (error) {
+    response.status(500).send(error.message);
+  }
+};
+
+const deleterejected = async (request, response) => {
+  try {
+    const id = parseInt(request.params.id);
+    await reject.deleteOne({ accountnumber: id });
+    response.status(200).send("Deleted Successfully");
+  } catch (error) {
+    response.status(500).send(error.message);
+  }
+};
+
 const acceptrejectedusers = async (request, response) => {
   try {
     const id = parseInt(request.params.id);
@@ -119,6 +138,35 @@ const createLoan = async (request, response) => {
     console.log(error.message);
   }
 };
+const viewloans = async (request, response) => {
+  try {
+    const data = await loan.find({});
+    response.send(data);
+  } catch (error) {
+    response.status(500).send(error.message);
+  }
+};
+const editloans = async (request, response) => {
+  try {
+    const users = await loan.findByIdAndUpdate(
+      request.params.id,
+      request.body,
+      { new: true }
+    );
+    response.send(users);
+  } catch (error) {
+    response.status(500).send(error.message);
+  }
+};
+
+const deleteloans = async (request, response) => {
+  try {
+    const users = await loan.findByIdAndDelete(request.params.id);
+    response.send(users);
+  } catch (error) {
+    response.status(500).send(error.message);
+  }
+};
 module.exports = {
   viewusers,
   editusers,
@@ -129,4 +177,9 @@ module.exports = {
   acceptrejectedusers,
   createLoan,
   create,
+  viewrejected,
+  deleterejected,
+  viewloans,
+  editloans,
+  deleteloans,
 };

@@ -26,9 +26,8 @@ const Customers = () => {
   };
   const handleSaveChanges = async () => {
     try {
-      
       const response = await axios.put(
-        `http://localhost:2014/admin/updateuser/${selectedUser._id}`,
+        `http://localhost:2014/admin/updateloans/${selectedUser._id}`,
         updatedUser
       );
       console.log(response.data);
@@ -40,7 +39,7 @@ const Customers = () => {
   };
   const axiosData = async () => {
     try {
-      const response = await axios.get("http://localhost:2014/admin/viewusers");
+      const response = await axios.get("http://localhost:2014/admin/viewloans");
       console.log(response.data);
       setData(response.data);
     } catch (e) {
@@ -54,7 +53,7 @@ const Customers = () => {
   const deleteusers = async (id) => {
     try {
       const response = await axios.delete(
-        `http://localhost:2014/admin/deleteusers/${id}`
+        `http://localhost:2014/admin/deleteloans/${id}`
       );
       axiosData();
     } catch (e) {
@@ -64,43 +63,27 @@ const Customers = () => {
 
   const columns = [
     {
-      field: "accountnumber",
-      headerName: "ID",
+      field: "title",
+      headerName: "Title",
+      flex: 1,
+      
+    },
+    {
+      field: "loanAmount",
+      headerName: "Loan Amount",
       flex: 0.5,
     },
     {
-      field: "username",
-      headerName: "Name",
-      flex: 0.5,
-    },
-    {
-      field: "email",
-      headerName: "Email",
+      field: "interestRate",
+      headerName: "Interest Rate",
       flex: 1,
     },
     {
-      field: "phone",
-      headerName: "Phone Number",
-      flex: 0.5,
-      renderCell: (params) => {
-        return params.value.replace(/^(\d{3})(\d{3})(\d{4})/, "($1)$2-$3");
-      },
-    },
-    {
-      field: "aadhar",
-      headerName: "Aadhar Number",
-      flex: 0.4,
-    },
-    {
-      field: "gender",
-      headerName: "Gender",
+      field: "loanTerm",
+      headerName: "Loan Term",
       flex: 0.5,
     },
-    {
-      field: "age",
-      headerName: "Age",
-      flex: 0.5,
-    },
+
     {
       field: "action",
       headerName: "Action",
@@ -129,7 +112,7 @@ const Customers = () => {
 
   return (
     <Box m="1.5rem 2.5rem">
-      <Header title="Bankers" subtitle="List of Bankers" />
+      <Header title="Loans" subtitle="List of Loans" />
       <Box
         mt="40px"
         height="75vh"
@@ -191,52 +174,42 @@ const Customers = () => {
                 Update User Details
               </h2>
               <div style={{ width: "170%", fontWeight: "bolder" }}>
-                <label htmlFor="username">Name:</label>
+                <label htmlFor="title">Title</label>
                 <input
                   type="text"
-                  id="username"
-                  name="username"
-                  value={updatedUser.username || selectedUser.username}
+                  id="title"
+                  name="title"
+                  value={updatedUser.title || selectedUser.title}
                   onChange={handleInputChange}
                 />
               </div>
               <div style={{ width: "170%" }}>
-                <label htmlFor="email">Email:</label>
+                <label htmlFor="loanAmount">Loan Amount: </label>
                 <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={updatedUser.email || selectedUser.email}
+                  type="text"
+                  id="loanAmount"
+                  name="loanAmount"
+                  value={updatedUser.loanAmount || selectedUser.loanAmount}
                   onChange={handleInputChange}
                 />
               </div>
               <div style={{ width: "170%" }}>
-                <label htmlFor="phone">Phone:</label>
+                <label htmlFor="interestRate">Interest Rate:</label>
                 <input
                   type="text"
-                  id="phone"
-                  name="phone"
-                  value={updatedUser.phone || selectedUser.phone}
+                  id="interestRate"
+                  name="interestRate"
+                  value={updatedUser.interestRate || selectedUser.interestRate}
                   onChange={handleInputChange}
                 />
               </div>
               <div style={{ width: "170%" }}>
-                <label htmlFor="Aadhar">Aadhar:</label>
+                <label htmlFor="loanTerm">Loan Term:</label>
                 <input
                   type="text"
-                  id="aadhar"
-                  name="Aadhar"
-                  value={updatedUser.aadhar || selectedUser.aadhar}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div style={{ width: "170%" }}>
-                <label htmlFor="age">Age:</label>
-                <input
-                  type="text"
-                  id="age"
-                  name="age"
-                  value={updatedUser.age || selectedUser.age}
+                  id="loanTerm"
+                  name="loanTerm"
+                  value={updatedUser.loanTerm || selectedUser.loanTerm}
                   onChange={handleInputChange}
                 />
               </div>

@@ -6,15 +6,15 @@ const loanSchema = new mongoose.Schema({
     required: true,
   },
   loanAmount: {
-    type: Number,
+    type: String,
     required: true,
   },
   interestRate: {
-    type: Number,
+    type: String,
     required: true,
   },
   loanTerm: {
-    type: Number,
+    type: String,
     required: true,
   },
   // Add other relevant fields as needed (e.g., collateral, purpose, etc.)
