@@ -5,19 +5,7 @@ const salt = bcrypt.genSaltSync(10);
 const secret = bcrypt.hashSync("BA/4789adfafadfafa", salt);
 const jwt = require("jsonwebtoken");
 
-const viewbyemail = async (request, response) => {
-  try {
-    const email = request.params.email;
-    console.log(email);
-    const data = await user.find({ email: email });
-    if (!data) return response.status(404).send("No User Found!");
-    else {
-      response.send(data);
-    }
-  } catch (error) {
-    response.status(500).send("hello");
-  }
-};
+
 const generateAccountNumber = ()=>{
   const accountnumber = Math.floor(100000000000 +Math.random()*900000000000).toString();
   return accountnumber
@@ -41,42 +29,47 @@ const create = async (request, response) => {
   } catch (error) {
     console.log(error.message);
   }
-};
-// const login = async (request, response) => {
-//   try {
-//     const s = await request.body;
-//     console.log(s);
-//     console.log(Object.values(s)[0]);
-//     const id = Object.values(s)[0];
-//     const password = Object.values(s)[1];
-//     let data = await user.find({ email: id });
-//     var role = "user";
-//     if (!data) {
-//       data = await admin.find({ email: id });
-//       if (data) {
-//         role = "admin";
-//       }
-//     }
-//     if (data) {
-//       const p = bcrypt.compareSync(
-//         password,
-//         Object.values(data)[0]["password"]
-//       );
-//       if (p) {
-//         console.log("Successful");
-//         jwt.sign({ id, id: data._id }, secret, {}, (err, token) => {
-//           if (err) throw err;
-//           console.log(token);
-//           response.cookie("token", token).json(role);
-//         });
-//       }
-//     } else {
-//       response.status(500).send("Invalid Credentials");
-//     }
-//   } catch (error) {
-//     response.status(500).send(error.message);
+};//working
+
+const viewcustomers = async (request,response)=>{
+  try{
+    const customer = await user.find();
+    if(customer.length==0)
+    {
+      response.send("DATA NOT FOUND");
+    }
+    else
+    {
+      response.json(customer)
+    }
+  }
+  catch(e)
+  {
+    response.status(500).send(e.message)
+  }
+}
+// const generateToken = (user) => {
+//   return jwt.sign(user, "secret_key", { expiresIn: "1h" });
+// }
+// const verifytoken = (req, res, next) => {
+//   const authHeader = req.headers['authorization'];
+//   if (!authHeader) 
+//   {
+//       return res.status(401).send("Access Denied");
 //   }
-// };
+//   const token = authHeader.split(' ')[1]; // For Removing 'Bearer' prefix
+//   jwt.verify(token, "secret_key", (err, decoded) => 
+//   {
+//       if (err) 
+//       {
+//           return res.status(403).send("Invalid Token");
+//       }
+//       req.user = decoded;
+//       next();
+//   });
+// }
+
+
 const login = async (request, response) => {
   try {
     const { email, password } = request.body;
@@ -87,6 +80,7 @@ const login = async (request, response) => {
       const isPasswordValid = bcrypt.compareSync(password, data.password);
       if (isPasswordValid) {
         console.log("Successful");
+        console.log(email)
         response.json("Login successful");
       } else {
         response.status(401).send("Invalid email or password");
@@ -94,11 +88,46 @@ const login = async (request, response) => {
     } else {
       response.status(401).send("Invalid email or password");
     }
+  
   } catch (error) {
     response.status(500).send(error.message);
   }
-};
+};//working
+ 
 
+
+//userdata 
+const getuserbyusername = async (username) => {
+  try {
+    const input  = await user.findOne({ username });
+    return input;
+  } catch (error) {
+    throw new Error("Error fetching user details");
+  }
+};
+// const getuserbyusername=async (request,response)=>{
+//   const {username} = request.params
+//   try {
+//     const u = await user.findOne({username})
+//     if(!u)
+//     {
+//       return response.status(404).json({message:"User Not Found"})
+//     }
+//     response.status(200).json(u)
+//   }
+//   catch(e)
+//   {
+//     console.log(e.message)
+//     response.status(500).json({message:"Internal Server Error"})
+//   }
+// }
+
+//transaction controller 
+// const transfermoney = async (senderno,recieverno,amount)=>{
+//   try{
+//     const 
+//   }
+// }
 
 // const login = async (request,response)=>{
 //   try{
@@ -178,7 +207,9 @@ const Withdrawl = async (request, response) => {
 module.exports = {
   create,
   login,
-  viewbyemail,
+  // viewbyemail,
+  viewcustomers,
+  getuserbyusername,
   editusers,
   deleteusers,
   Credit,

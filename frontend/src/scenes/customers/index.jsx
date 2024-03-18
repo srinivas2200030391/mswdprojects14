@@ -1,52 +1,74 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, useTheme } from "@mui/material";
-import { useGetCustomersQuery } from "../../state/api";
-import Header from "../../DashComponents/Header";
 import { DataGrid } from "@mui/x-data-grid";
+import Header from "../../DashComponents/Header";
+import axios from 'axios';
 
 const Customers = () => {
   const theme = useTheme();
-  const { data, isLoading } = useGetCustomersQuery();
-  console.log("data", data);
+  const [customers, setCustomers] = useState([]);
+  console.log("customers", customers);
+
+  const fetchCustomers = async () => {
+    try {
+      const response = await axios.get("http://localhost:2014/users/viewcustomers");
+      const customersWithId = response.data.map(customer => ({ ...customer, id: customer._id }));
+      setCustomers(customersWithId);
+    } catch (e) {
+      console.error(e.message);
+    }
+  };
+  
+
+  useEffect(() => {
+    fetchCustomers();
+  }, []);
 
   const columns = [
     {
-      field: "_id",
-      headerName: "ID",
+      field: "username",
+      headerName: "Username",
       flex: 1,
     },
     {
-      field: "name",
-      headerName: "Name",
+      field: "fullname",
+      headerName: "Full Name",
+      flex: 1,
+    },
+    {
+      field: "accountnumber",
+      headerName: "Account Number",
+      flex: 1,
+    },
+    {
+      field: "aadhar",
+      headerName: "Aadhar",
+      flex: 1,
+    },
+    {
+      field: "age",
+      headerName: "Age",
       flex: 0.5,
+    },
+    {
+      field: "address",
+      headerName: "Address",
+      flex: 1,
+    },
+    {
+      field: "gender",
+      headerName: "Gender",
+      flex: 0.5,
+    },
+    {
+      field: "phone",
+      headerName: "Phone",
+      flex: 1,
     },
     {
       field: "email",
       headerName: "Email",
       flex: 1,
-    },
-    {
-      field: "phoneNumber",
-      headerName: "Phone Number",
-      flex: 0.5,
-      renderCell: (params) => {
-        return params.value.replace(/^(\d{3})(\d{3})(\d{4})/, "($1)$2-$3");
-      },
-    },
-    {
-      field: "country",
-      headerName: "Country",
-      flex: 0.4,
-    },
-    {
-      field: "occupation",
-      headerName: "Occupation",
-      flex: 1,
-    },
-    {
-      field: "role",
-      headerName: "Role",
-      flex: 0.5,
     },
   ];
 
@@ -81,9 +103,8 @@ const Customers = () => {
           },
         }}>
         <DataGrid
-          loading={isLoading || !data}
-          getRowId={(row) => row._id}
-          rows={data || []}
+          loading={!customers.length}
+          rows={customers}
           columns={columns}
         />
       </Box>

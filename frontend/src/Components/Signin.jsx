@@ -131,7 +131,7 @@ export default function Signin() {
                 padding: "12pt",
                 transform: "translateX(-11px)",
                 width: "30rem",
-                height:"3rem"
+
               }}
             />
             <br />
@@ -159,7 +159,7 @@ export default function Signin() {
                 padding: "12pt",
                 transform: "translateX(-11px)",
                 width: "94%",
-                height:"3rem"
+
               }}
             />
             <br />

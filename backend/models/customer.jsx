@@ -56,31 +56,8 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  
 });
-
-// UserSchema.methods.generateToken = async function () {
-//   try {
-//     return jwt.signin(
-//       {
-//         _id: this._id.toString(),
-//         username: this.username,
-//         aadhar: this.aadhar,
-//         age: this.age,
-//         address: this.address,
-//         balance: this.balance,
-//         photo: this.photo,
-//         gender: this.gender,
-//         phone: this.phone,
-//         email: this.email,
-//       },
-//       {
-//         expiresIn: "1d",
-//       }
-//     );
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
 
 const UserModel = mongoose.model("User", UserSchema);
 
