@@ -3,7 +3,9 @@ const admin = require("../models/Admin.jsx");
 const pending = require("../models/PendingModel.jsx");
 const reject = require("../models/RejectedModel.jsx");
 const loan = require("../models/LoanModel.jsx");
-
+const bcrypt = require("bcrypt");
+const salt = bcrypt.genSaltSync(10);
+const secret = "ABCD";
 const viewusers = async (req, res) => {
   try {
     const customers = await user.find({});
@@ -11,6 +13,25 @@ const viewusers = async (req, res) => {
     res.status(200).json(customers);
   } catch (error) {
     res.status(404).json({ message: error.message });
+  }
+};
+
+const create = async (request, response) => {
+  try {
+    const s = await request.body;
+    const password = bcrypt.hashSync(s["password"], salt);
+    s["password"] = password;
+
+    console.log(s);
+
+    const users = new admin(s);
+    await users.save();
+    response.send("Registered Successfully");
+    response.status(201).json({
+      msg: users,
+    });
+  } catch (error) {
+    console.log(error.message);
   }
 };
 
@@ -107,4 +128,5 @@ module.exports = {
   rejectusers,
   acceptrejectedusers,
   createLoan,
+  create,
 };

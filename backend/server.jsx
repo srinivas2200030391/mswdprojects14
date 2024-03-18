@@ -65,10 +65,7 @@ const login = async (request, response) => {
       );
       if (p) {
         console.log("Successful");
-        jwt.sign({ id, id: data._id }, secret, {}, (err, token) => {
-          if (err) throw err;
-          response.cookie("token", token).json(role);
-        });
+        response.json(role);
       }
     } else {
       response.status(500).send("Invalid Credentials");

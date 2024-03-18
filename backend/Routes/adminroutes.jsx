@@ -3,6 +3,7 @@ const response = express.Router();
 const admins = require("../controllers/admincontroller.jsx");
 response.get("/viewusers", admins.viewusers);
 response.post("/acceptusers/:id", admins.acceptusers);
+response.post("/create", admins.create);
 response.post("/rejectusers/:id", admins.rejectusers);
 response.post("/acceptrejectedusers/:id", admins.acceptrejectedusers);
 response.get("/viewpending", admins.viewpending);
