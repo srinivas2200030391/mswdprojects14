@@ -6,7 +6,7 @@ const loan = require("../models/LoanModel.jsx");
 
 const viewusers = async (req, res) => {
   try {
-    const customers = await user.find({}).select("-password");
+    const customers = await user.find({});
     console.log(customers);
     res.status(200).json(customers);
   } catch (error) {
