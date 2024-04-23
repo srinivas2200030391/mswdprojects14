@@ -1,20 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FlexBetween from "../../DashComponents/FlexBetween";
 import Header from "../../DashComponents/Header";
-import {
-  DownloadOutlined,
-  Email,
-  PointOfSale,
-  PersonAdd,
-  Traffic,
-} from "@mui/icons-material";
-import {
-  Box,
-  Button,
-  Typography,
-  useTheme,
-  useMediaQuery,
-} from "@mui/material";
+import {DownloadOutlined,Email,PointOfSale,PersonAdd,Traffic,} from "@mui/icons-material";
+import {Box, Button,Typography,  useTheme,  useMediaQuery,} from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import BreakdownChart from "../../DashComponents/BreakdownChart";
 import OverviewChart from "../../DashComponents/OverviewChart";
@@ -26,6 +14,17 @@ const Dashboard = () => {
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
   const { data, isLoading } = useGetDashboardQuery();
 
+  const [customerData,setCustomerData] = useState("")
+  
+  useEffect(() => {
+    const storedCustomerData = localStorage.getItem("User")
+    if(storedCustomerData)
+    {
+      const parsedCustomerData = JSON.parse(storedCustomerData)
+      setCustomerData(parsedCustomerData)
+    }
+  }, [])
+  
   const columns = [
     {
       field: "_id",
@@ -60,8 +59,10 @@ const Dashboard = () => {
   return (
     <Box m="1.5rem 2.5rem">
       <FlexBetween>
-        <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
-
+        <Header title="DASHBOARD" subtitle="" />
+        {customerData &&(
+          <p>Welcome {customerData.username}</p>
+        )}
         <Box>
           <Button
             sx={{

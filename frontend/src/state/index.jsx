@@ -1,8 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { loginUser } from "./userSlice";
 
 const initialState = {
   mode: "light",
-  userId: "63701cc1f03239b7f700000e",
+  username:"",
+  fullname:"",
+  accountnumber:"",
+  aadhar:"",
+  age:"",
+  address:"",
+  balance:0,
+  gender:"",
+  phone:"",
+  email:"",
+  password:"",
 };
 
 export const globalSlice = createSlice({
@@ -12,8 +23,13 @@ export const globalSlice = createSlice({
     setMode: (state) => {
       state.mode = state.mode === "light" ? "dark" : "light";
     },
+    loginUser: (state, action) => {
+      return { ...state, ...action.payload };
+    },
+    logoutUser: () => initialState,
   },
 });
+
 
 export const { setMode } = globalSlice.actions;
 

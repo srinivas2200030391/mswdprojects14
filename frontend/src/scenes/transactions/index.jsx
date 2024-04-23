@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Box, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useGetTransactionsQuery } from "../../state/api";
@@ -6,19 +6,54 @@ import Header from "../../DashComponents/Header";
 import DataGridCustomToolbar from "../../DashComponents/DataGridCustomToolbar";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import Modal from "@mui/material/Modal";
+import axios from "axios";
 
 const Transactions =   () => {
   const theme = useTheme();
-
+  const [open, setOpen] = useState(false);
   // values to be sent to the backend
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(20);
   const [sort, setSort] = useState({});
   const [search, setSearch] = useState("");
 
+  const [sender,setSender] = useState("");
+  const [reciever,setReciever] = useState("");
+
   const maketransaction = ()=>{
+    setOpen(true);
     
   }
+  const handleClose = () => {
+    setOpen(false);
+    
+  };
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get('https://localhost:2014/users/viewcustomers');
+        setUsers(response.data); // Assuming the response data is an array of users
+      } catch (error) {
+        console.error('Failed to fetch users', error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  const handleSaveChanges = async () => {
+    try {
+      const response = await axios.put(
+        `http://localhost:2014/users/updateuser/${userData._id}`,
+        updatedUserData
+      );
+      console.log(response.data);
+      handleClose();
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
   const [searchInput, setSearchInput] = useState("");
   const { data, isLoading } = useGetTransactionsQuery({
     page,
@@ -64,6 +99,97 @@ const Transactions =   () => {
 
     <Box m="1rem 2rem">
       <Header title="TRANSACTIONS" subtitle="Entire list of transactions" />
+      <Modal open={open} onClose={handleClose}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-30%, -50%)",
+            bgcolor: "background.paper",
+            borderRadius: "10px",
+            boxShadow: 24,
+            width: "25%",
+            p: 4,
+            display: "flex",
+            justifyContent: "flex-start",
+            alignContent: "center",
+          }}
+        >
+          <div>
+            <h2 style={{ padding: "20px", textAlign: "center" }}>
+              Transaction
+            </h2>
+            
+            <div style={{ width: "170%" }}>
+              <label htmlFor="email">Sender Email:</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                // value={updatedUserData.email || ""}
+                // onChange={handleInputChange}
+              />
+            </div>
+            <div style={{ width: "170%" }}>
+              <label htmlFor="password"> Sender Password:</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                // value={updatedUserData.email || ""}
+                // onChange={handleInputChange}
+              />
+            </div>
+            
+            <div style={{ width: "170%" }}>
+              <label htmlFor="reciever">Receiver Email:</label>
+              <input
+                type="email"
+                id="recieveremail"
+                name="recieveremail"
+                // value={updatedUserData.phone || ""}
+                // onChange={handleInputChange}
+              />
+            </div>
+            <div style={{ width: "170%" }}>
+              <label htmlFor="raccountno">Receiver Account No:</label>
+              <input
+                type="number"
+                id="raccountno"
+                name="raccountno"
+                // value={updatedUserData.phone || ""}
+                // onChange={handleInputChange}
+              />
+            </div>
+            <div style={{ width: "170%" }}>
+              <label htmlFor="amount">Amount:</label>
+              <input
+                type="number"
+                id="amount"
+                name="amount"
+                // value={updatedUserData.phone || ""}
+                // onChange={handleInputChange}
+              />
+            </div>
+            
+            <button
+              onClick={handleSaveChanges}
+              style={{
+                border: "1px solid black",
+                padding: "10px",
+                transform: "translateX(115%)",
+                borderRadius: "20px",
+                backgroundColor: "rgba(255,155,259)",
+                marginTop: "15px",
+                cursor: "pointer",
+              }}
+            >
+             Make Transaction
+            </button>
+          </div>
+        </Box>
+      </Modal>
       <Box
         height="80vh"
         sx={{
@@ -111,7 +237,7 @@ const Transactions =   () => {
           
       </Box>
       <Box sx={{ textAlign: "center" }}>
-          <Button variant="contained" color="primary" >
+          <Button variant="contained" color="primary" onClick={()=>maketransaction()}>
             Make Transaction
           </Button>
         </Box>

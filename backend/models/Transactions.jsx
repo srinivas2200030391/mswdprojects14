@@ -1,12 +1,13 @@
 const mongoose = require("mongoose")
+
 const TransactionSchema = new mongoose.Schema({
     sender:{
-        type:String,
+        type:Object,
         ref:"User",
         required:true,
     },
     reciever:{
-        type:String,
+        type:Object,
         ref:"User",
         required:true,
     },
@@ -15,8 +16,8 @@ const TransactionSchema = new mongoose.Schema({
         required:true,
     },
     date:{
-        type:Date,
-        default:Date.now,
+        type:String,
+        default:() => moment().tz('Asia/Kolkata').format('DD-MM-YYYY HH:mm:ss A'),
     },
 });
 

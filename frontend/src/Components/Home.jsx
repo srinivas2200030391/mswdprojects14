@@ -10,10 +10,11 @@ import Contactus from "./Contactus";
 import Rights from "./rights";
 import Signup from "./signup";
 import Cards from "./Cards";
-import Profile from "./Profile";
-import UserDashboard from "../UserDashboard";
 
-const Home = () => {
+// import UserDashboard from "../UserDashboard";
+// import Profile from "../scenes/profile";
+
+const Home = ({onCustomerLogin,onAdminLogin}) => {
   return (
     <div>
       <Routes>
@@ -32,13 +33,13 @@ const Home = () => {
           }
         />
 
-        <Route path="/quote" el ement={<Quote />} />
+        <Route path="/quote" element={<Quote />} />
         <Route path="/about" element={<About />} />
-        <Route path="/signin" element={<Signin />} />
+        <Route path="/signin" element={<Signin onCustomerLogin={onCustomerLogin} onAdminLogin={onAdminLogin}/>} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/CreditCard" element={<Cards />} />
-        <Route path="/Profile" element={<Profile />} />
-        <Route path="/userdashboard/*" element={<UserDashboard />} />
+        
+        
       </Routes>
     </div>
   );

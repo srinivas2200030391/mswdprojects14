@@ -98,6 +98,7 @@ const Sidebar = ({
   isSidebarOpen,
   setIsSidebarOpen,
   isNonMobile,
+  
 }) => {
   const { pathname } = useLocation();
   const [active, setActive] = useState("");

@@ -31,6 +31,10 @@ const create = async (request, response) => {
   }
 }; //working
 
+// const maketransaction = async(request,response)
+// {
+
+// }
 const viewcustomers = async (request, response) => {
   try {
     const customer = await user.find();
@@ -44,29 +48,59 @@ const viewcustomers = async (request, response) => {
   }
 };
 
-const getuserbyusername = async (request, response) => {
+const getuserbyemail = async (request, response) => 
+{
   try {
-    const username = request.params.username;
-    console.log(username);
-    const input = await user.find({ username });
-    return input;
-  } catch (error) {
+    const email = request.params.email;
+    console.log(email);
+    const userData = await user.findOne({email});
+    console.log(userData)
+    response.json(userData)
+    // const input = await user.find({ email });
+    // console.log(input)
+    // return input;
+  }
+   catch (error) {
     console.log(error.message);
+    response.status(500).send(error.message)
   }
 };
 
-const editusers = async (request, response) => {
-  try {
-    const users = await user.findByIdAndUpdate(
-      request.params.id,
-      request.body,
-      { new: true }
-    );
-    response.send(users);
-  } catch (error) {
-    response.status(500).send(error.message);
+//using id
+// const editusers = async (request, response) => {
+//   try {
+//     const users = await user.findByIdAndUpdate(
+//       request.params.id,
+//       request.body,
+//       { new: true }
+//     );
+//     response.send(users);
+//   } catch (error) {
+//     response.status(500).send(error.message);
+//   }
+// };
+
+const editusers = async (request,response)=>{
+  try{
+    const userEmail = request.params.email;
+    const updatedUserData = request.body
+
+    const updatedUser = await user.findOneAndUpdate({email:userEmail},updatedUserData,{new:true});
+
+    if(updatedUser)
+    {
+      response.send(updatedUser)
+    }
+    else{
+      response.status(404).send("User Not Found")
+    }
   }
-};
+  catch(error)
+  {
+    response.status(500).send(error.message)
+    }
+}
+
 const deleteusers = async (request, response) => {
   try {
     const users = await user.findByIdAndDelete(request.params.id);
@@ -133,7 +167,7 @@ module.exports = {
   create,
   viewloans,
   viewcustomers,
-  getuserbyusername,
+  getuserbyemail  ,
   editusers,
   deleteusers,
   Credit,

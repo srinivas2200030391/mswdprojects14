@@ -60,8 +60,7 @@ export default function Signin() {
   };
   const passwordvalidation = (e) => {
     const password = e.target.value;
-    const validatepass =
-      /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    const validatepass =/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
     if (!validatepass.test(password)) {
       document.getElementById("passmessage").innerHTML =
         "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character.";

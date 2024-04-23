@@ -27,6 +27,8 @@ export default function Signin() {
       );
       if (response) {
         if (response.data === "User") {
+          const userEmail = formData.email;
+          localStorage.setItem("userEmail",userEmail)
           navigate("/user-dashboard/dashboard", {
             state: { email: formData.email },
           });
