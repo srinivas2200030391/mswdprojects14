@@ -48,21 +48,19 @@ const viewcustomers = async (request, response) => {
   }
 };
 
-const getuserbyemail = async (request, response) => 
-{
+const getuserbyemail = async (request, response) => {
   try {
     const email = request.params.email;
     console.log(email);
-    const userData = await user.findOne({email});
-    console.log(userData)
-    response.json(userData)
+    const userData = await user.findOne({ email });
+    console.log(userData);
+    response.json(userData);
     // const input = await user.find({ email });
     // console.log(input)
     // return input;
-  }
-   catch (error) {
+  } catch (error) {
     console.log(error.message);
-    response.status(500).send(error.message)
+    response.status(500).send(error.message);
   }
 };
 
@@ -80,26 +78,32 @@ const getuserbyemail = async (request, response) =>
 //   }
 // };
 
-const editusers = async (request,response)=>{
-  try{
-    const userEmail = request.params.email;
-    const updatedUserData = request.body
+const editusers = async (request, response) => {
+  try {
+    const username = request.body.username;
+    const email = request.body.email;
+    console.log(username);
 
-    const updatedUser = await user.findOneAndUpdate({email:userEmail},updatedUserData,{new:true});
+    const existingUser = await user.findOne({ username });
+    if (existingUser && existingUser._id.toString() !== request.params.id) {
+      console.log(existingUser);
+      throw new Error("Username already exists");
+    }
+    const existingEmail = await user.findOne({ email });
+    if (existingEmail && existingEmail._id.toString() !== request.params.id) {
+      return response.status(500).send("Email already exists");
+    }
 
-    if(updatedUser)
-    {
-      response.send(updatedUser)
-    }
-    else{
-      response.status(404).send("User Not Found")
-    }
+    const users = await user.findByIdAndUpdate(
+      request.params.id,
+      request.body,
+      { new: true }
+    );
+    response.send(users);
+  } catch (error) {
+    return response.status(500).send(error);
   }
-  catch(error)
-  {
-    response.status(500).send(error.message)
-    }
-}
+};
 
 const deleteusers = async (request, response) => {
   try {
@@ -167,7 +171,7 @@ module.exports = {
   create,
   viewloans,
   viewcustomers,
-  getuserbyemail  ,
+  getuserbyemail,
   editusers,
   deleteusers,
   Credit,

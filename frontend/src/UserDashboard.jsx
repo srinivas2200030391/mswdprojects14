@@ -17,8 +17,7 @@ import Monthly from "./scenes/monthly";
 import Breakdown from "./scenes/breakdown";
 
 import Performance from "./scenes/performance";
-import Profile from './scenes/profile';
-
+import Profile from "./scenes/profile";
 
 function UserDashboard() {
   const mode = useSelector((state) => state.global.mode);
@@ -26,24 +25,55 @@ function UserDashboard() {
   const location = useLocation();
   const userEmail = location.state?.email || "";
 
-  
-
   return (
     <div className="app">
       <ThemeProvider theme={theme}>
         <ScopedCssBaseline />
         <Routes>
           <Route element={<Layout />}>
-            <Route path="/dashboard/*" element={<Dashboard />} exact/>
-            <Route path="/products" element={<Products />} exact/>
-            <Route path="/transactions" element={<Transactions />} exact/>
-            <Route path="/transfer" element={<Transfer />} exact/>
-            <Route path="/overview" element={<Overview />} exact/>
-            <Route path="/daily" element={<Daily />} exact/>
-            <Route path="/monthly" element={<Monthly />} exact/>
-            <Route path="/breakdown" element={<Breakdown />} exact/>
-            <Route path="/profile" element={<Profile email={userEmail}/>} exact/>
-            <Route path="/user-dashboard/performance" element={<Performance />} exact/>
+            <Route path="/" element={<Dashboard />} exact />
+            <Route
+              path="/user-dashboard/dashboard/*"
+              element={<Dashboard />}
+              exact
+            />
+            <Route
+              path="/user-dashboard/products"
+              element={<Products />}
+              exact
+            />
+            <Route
+              path="/user-dashboard/transactions"
+              element={<Transactions />}
+              exact
+            />
+            <Route
+              path="/user-dashboard/transfer"
+              element={<Transfer />}
+              exact
+            />
+            <Route
+              path="/user-dashboard/overview"
+              element={<Overview />}
+              exact
+            />
+            <Route path="/user-dashboard/daily" element={<Daily />} exact />
+            <Route path="/user-dashboard/monthly" element={<Monthly />} exact />
+            <Route
+              path="/user-dashboard/breakdown"
+              element={<Breakdown />}
+              exact
+            />
+            <Route
+              path="/user-dashboard/profile"
+              element={<Profile email={userEmail} />}
+              exact
+            />
+            <Route
+              path="/user-dashboard/performance"
+              element={<Performance />}
+              exact
+            />
           </Route>
         </Routes>
       </ThemeProvider>

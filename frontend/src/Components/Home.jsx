@@ -14,7 +14,7 @@ import Cards from "./Cards";
 // import UserDashboard from "../UserDashboard";
 // import Profile from "../scenes/profile";
 
-const Home = ({onCustomerLogin,onAdminLogin}) => {
+const Home = ({ onAdminLogin, onCustomerLogin }) => {
   return (
     <div>
       <Routes>
@@ -35,11 +35,17 @@ const Home = ({onCustomerLogin,onAdminLogin}) => {
 
         <Route path="/quote" element={<Quote />} />
         <Route path="/about" element={<About />} />
-        <Route path="/signin" element={<Signin onCustomerLogin={onCustomerLogin} onAdminLogin={onAdminLogin}/>} />
+        <Route
+          path="/signin"
+          element={
+            <Signin
+              onCustomerLogin={onCustomerLogin}
+              onAdminLogin={onAdminLogin}
+            />
+          }
+        />
         <Route path="/signup" element={<Signup />} />
         <Route path="/CreditCard" element={<Cards />} />
-        
-        
       </Routes>
     </div>
   );

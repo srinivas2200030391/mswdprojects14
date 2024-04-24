@@ -1,14 +1,31 @@
-import React, { useState ,useEffect} from "react";
-import {LightModeOutlined,  DarkModeOutlined,  Menu as MenuIcon,  Search,SettingsOutlined,  ArrowDropDownOutlined,} from "@mui/icons-material";
+import React, { useState, useEffect } from "react";
+import {
+  LightModeOutlined,
+  DarkModeOutlined,
+  Menu as MenuIcon,
+  Search,
+  SettingsOutlined,
+  ArrowDropDownOutlined,
+} from "@mui/icons-material";
 import FlexBetween from "./FlexBetween";
 import { useDispatch, useSelector } from "react-redux"; // Import useSelector hook
 import { setMode } from "../state1/index";
 import profileImage from "../assets/profile.jpeg";
-import {  AppBar,  Button,  Box,  Typography,  IconButton,  InputBase,  Toolbar,  Menu,  MenuItem,useTheme,} from "@mui/material";
+import {
+  AppBar,
+  Button,
+  Box,
+  Typography,
+  IconButton,
+  InputBase,
+  Toolbar,
+  Menu,
+  MenuItem,
+  useTheme,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { userSlice } from './../state/userSlice';
-import { loginUser, logoutUser } from './../state/userSlice';
-
+import { userSlice } from "./../state/userSlice";
+import { loginUser, logoutUser } from "./../state/userSlice";
 
 const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
@@ -18,18 +35,17 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const isOpen = Boolean(anchorEl);
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const user = useSelector((state) => state.user);
-  const handleLogout = ()=>
-  {
-    localStorage.removeItem("isCustomerLoggedIn")
-    localStorage.removeItem("User")
-    navigate("/signin")
-    window.location.reload()
-  }
-//   const handleLogout = () => {
-//     dispatch(logoutUser());
-//     navigate("/signin");
-//     // No need for localStorage removal or window.location.reload() if handled within your slice
-// };
+  const handleLogout = () => {
+    localStorage.removeItem("isCustomerLoggedIn");
+    localStorage.removeItem("User");
+    navigate("/");
+    window.location.reload();
+  };
+  //   const handleLogout = () => {
+  //     dispatch(logoutUser());
+  //     navigate("/signin");
+  //     // No need for localStorage removal or window.location.reload() if handled within your slice
+  // };
 
   // Get user data from Redux store
   // const user = useSelector((state) => state.user.userSlice);
@@ -41,7 +57,6 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
         background: "none",
         boxShadow: "none",
       }}>
-        
       <Toolbar sx={{ justifyContent: "space-between" }}>
         {/* LEFT SIDE */}
         <FlexBetween>
@@ -61,17 +76,15 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 outline: "none",
               }}
             />
-            
+
             <IconButton>
               <Search />
             </IconButton>
           </FlexBetween>
         </FlexBetween>
-        
+
         {/* Display user details if logged in */}
-        {user && (
-          <h3>Welcome {user.username}</h3>
-        )}
+        {user && <h3>Welcome {user.username}</h3>}
 
         {/* RIGHT SIDE */}
         <FlexBetween gap="1.5rem">

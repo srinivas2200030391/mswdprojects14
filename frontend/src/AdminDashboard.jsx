@@ -23,13 +23,20 @@ function AdminDashboard() {
         <ScopedCssBaseline />
         <Routes>
           <Route element={<Layout />}>
-            <Route path="/dashboard/*" element={<Dashboard />} />
-            <Route path="/pending" element={<Pending />} />
-            <Route path="/customers" element={<Customers />} />
-            <Route path="/rejected" element={<Rejected />} />
-            <Route path="/Loans" element={<Loans />} />
-            <Route path="/AddLoans" element={<AddLoans />} />
-            <Route path="/Applications" element={<Applications />} />
+            <Route path="/" element={<Dashboard />} />
+            <Route
+              path="/admin-dashboard/dashboard/*"
+              element={<Dashboard />}
+            />
+            <Route path="/admin-dashboard/pending" element={<Pending />} />
+            <Route path="/admin-dashboard/customers" element={<Customers />} />
+            <Route path="/admin-dashboard/rejected" element={<Rejected />} />
+            <Route path="/admin-dashboard/Loans" element={<Loans />} />
+            <Route path="/admin-dashboard/AddLoans" element={<AddLoans />} />
+            <Route
+              path="/admin-dashboard/Applications"
+              element={<Applications />}
+            />
           </Route>
         </Routes>
       </ThemeProvider>

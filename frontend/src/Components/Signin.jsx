@@ -3,9 +3,7 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import "./signin.css";
 import axios from "axios";
 
-export default function Signin() {
-
-
+export default function Signin({ onCustomerLogin, onAdminLogin }) {
   const [formData, setFormData] = useState({
     email: location.state ? location.state.email : "",
     password: "",
@@ -26,16 +24,17 @@ export default function Signin() {
         formData
       );
       if (response) {
-        if (response.data === "User") {
-          const userEmail = formData.email;
-          localStorage.setItem("userEmail",userEmail)
-          navigate("/user-dashboard/dashboard", {
-            state: { email: formData.email },
-          });
-        } else if (response.data === "Admin") {
-          navigate("/admin-dashboard/dashboard", {
-            state: { email: formData.email },
-          });
+        console.log(response.data);
+        if (response.data.role === "User") {
+          onCustomerLogin();
+          localStorage.setItem("User", JSON.stringify(response.data.data));
+
+          navigate("/user-dashboard/dashboard");
+        } else if (response.data.role === "Admin") {
+          onAdminLogin();
+          localStorage.setItem("Admin", JSON.stringify(response.data.data));
+
+          navigate("/admin-dashboard/dashboard");
         }
       } else {
         setMessage("Sign In Failed");

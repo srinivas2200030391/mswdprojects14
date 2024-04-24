@@ -59,7 +59,7 @@ const login = async (request, response) => {
       );
       if (p) {
         console.log("Successful");
-        response.json(role);
+        response.json({ role: role, data: data });
       }
     } else {
       response.status(500).send("Invalid Credentials");

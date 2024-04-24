@@ -1,8 +1,20 @@
 import React, { useEffect, useState } from "react";
 import FlexBetween from "../../DashComponents/FlexBetween";
 import Header from "../../DashComponents/Header";
-import {DownloadOutlined,Email,PointOfSale,PersonAdd,Traffic,} from "@mui/icons-material";
-import {Box, Button,Typography,  useTheme,  useMediaQuery,} from "@mui/material";
+import {
+  DownloadOutlined,
+  Email,
+  PointOfSale,
+  PersonAdd,
+  Traffic,
+} from "@mui/icons-material";
+import {
+  Box,
+  Button,
+  Typography,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import BreakdownChart from "../../DashComponents/BreakdownChart";
 import OverviewChart from "../../DashComponents/OverviewChart";
@@ -14,17 +26,16 @@ const Dashboard = () => {
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
   const { data, isLoading } = useGetDashboardQuery();
 
-  const [customerData,setCustomerData] = useState("")
-  
+  const [customerData, setCustomerData] = useState(null);
+
   useEffect(() => {
-    const storedCustomerData = localStorage.getItem("User")
-    if(storedCustomerData)
-    {
-      const parsedCustomerData = JSON.parse(storedCustomerData)
-      setCustomerData(parsedCustomerData)
+    const storedCustomerData = localStorage.getItem("User");
+    if (storedCustomerData) {
+      const parsedCustomerData = JSON.parse(storedCustomerData);
+      setCustomerData(parsedCustomerData[0]);
     }
-  }, [])
-  
+  }, []);
+
   const columns = [
     {
       field: "_id",
@@ -60,9 +71,7 @@ const Dashboard = () => {
     <Box m="1.5rem 2.5rem">
       <FlexBetween>
         <Header title="DASHBOARD" subtitle="" />
-        {customerData &&(
-          <p>Welcome {customerData.username}</p>
-        )}
+        {customerData && <p>Welcome {customerData.username}</p>}
         <Box>
           <Button
             sx={{
@@ -71,8 +80,7 @@ const Dashboard = () => {
               fontSize: "14px",
               fontWeight: "bold",
               padding: "10px 20px",
-            }}
-          >
+            }}>
             <DownloadOutlined sx={{ mr: "10px" }} />
             Download Reports
           </Button>
@@ -87,8 +95,7 @@ const Dashboard = () => {
         gap="20px"
         sx={{
           "& > div": { gridColumn: isNonMediumScreens ? undefined : "span 12" },
-        }}
-      >
+        }}>
         {/* ROW 1 */}
         <StatBox
           title="Total Customers"
@@ -117,8 +124,7 @@ const Dashboard = () => {
           gridRow="span 2"
           backgroundColor={theme.palette.background.alt}
           p="1rem"
-          borderRadius="0.55rem"
-        >
+          borderRadius="0.55rem">
           <OverviewChart view="sales" isDashboard={true} />
         </Box>
         <StatBox
@@ -172,8 +178,7 @@ const Dashboard = () => {
             "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
               color: `${theme.palette.secondary[200]} !important`,
             },
-          }}
-        >
+          }}>
           <DataGrid
             loading={isLoading || !data}
             getRowId={(row) => row._id}
@@ -186,8 +191,7 @@ const Dashboard = () => {
           gridRow="span 3"
           backgroundColor={theme.palette.background.alt}
           p="1.5rem"
-          borderRadius="0.55rem"
-        >
+          borderRadius="0.55rem">
           <Typography variant="h6" sx={{ color: theme.palette.secondary[100] }}>
             Sales By Category
           </Typography>
@@ -195,8 +199,7 @@ const Dashboard = () => {
           <Typography
             p="0 0.6rem"
             fontSize="0.8rem"
-            sx={{ color: theme.palette.secondary[200] }}
-          >
+            sx={{ color: theme.palette.secondary[200] }}>
             Breakdown of real states and information via category for revenue
             made for this year and total sales.
           </Typography>
