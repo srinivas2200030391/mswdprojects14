@@ -1,6 +1,34 @@
 import React from "react";
-import {  Box,  Divider,  Drawer,  IconButton,  List,  ListItem,  ListItemButton,  ListItemIcon,  ListItemText,  Typography,  useTheme,} from "@mui/material";
-import {SettingsOutlined, ChevronLeft,ChevronRightOutlined,  HomeOutlined,  ShoppingCartOutlined,  Groups2Outlined,  ReceiptLongOutlined,  PublicOutlined,  PointOfSaleOutlined,  TodayOutlined,  CalendarMonthOutlined,  AdminPanelSettingsOutlined,  TrendingUpOutlined,  PieChartOutlined,} from "@mui/icons-material";
+import {
+  Box,
+  Divider,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import {
+  SettingsOutlined,
+  ChevronLeft,
+  ChevronRightOutlined,
+  HomeOutlined,
+  ShoppingCartOutlined,
+  Groups2Outlined,
+  ReceiptLongOutlined,
+  PublicOutlined,
+  PointOfSaleOutlined,
+  TodayOutlined,
+  CalendarMonthOutlined,
+  AdminPanelSettingsOutlined,
+  TrendingUpOutlined,
+  PieChartOutlined,
+} from "@mui/icons-material";
+import ReceiptIcon from "@mui/icons-material/Receipt";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import FlexBetween from "./FlexBetween";
@@ -12,27 +40,28 @@ const navItems = [
     icon: <HomeOutlined />,
   },
   {
-    text: "Client Facing",
+    text: "Banking",
     icon: null,
   },
-  {
-    text: "Products",
-    icon: <ShoppingCartOutlined />,
-  },
+  {},
   {
     text: "Profile",
     icon: <Groups2Outlined />,
   },
   {
     text: "Transactions",
-    icon: <ReceiptLongOutlined />,
+    icon: <ReceiptIcon />,
   },
   {
     text: "Transfer",
     icon: <PublicOutlined />,
   },
   {
-    text: "Sales",
+    text: "Credit/Debit",
+    icon: <PublicOutlined />,
+  },
+  {
+    text: "Loans",
     icon: null,
   },
   {
@@ -50,18 +79,6 @@ const navItems = [
   {
     text: "Breakdown",
     icon: <PieChartOutlined />,
-  },
-  {
-    text: "Management",
-    icon: null,
-  },
-  {
-    text: "Admin",
-    icon: <AdminPanelSettingsOutlined />,
-  },
-  {
-    text: "Performance",
-    icon: <TrendingUpOutlined />,
   },
 ];
 

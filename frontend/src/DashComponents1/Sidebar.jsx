@@ -35,7 +35,7 @@ const navItems = [
     icon: <HomeOutlined />,
   },
   {
-    text: "Client Facing",
+    text: "Clients",
     icon: null,
   },
   {
@@ -52,7 +52,7 @@ const navItems = [
   },
  
   {
-    text: "Sales",
+    text: "Loans",
     icon: null,
   },
   {
