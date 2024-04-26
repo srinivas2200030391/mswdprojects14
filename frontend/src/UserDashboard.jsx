@@ -11,7 +11,7 @@ import Products from "./scenes/products";
 
 import Transactions from "./scenes/transactions";
 import Transfer from "./scenes/transfer";
-import Overview from "./scenes/overview";
+
 import Daily from "./scenes/daily";
 import Monthly from "./scenes/Loans";
 import Breakdown from "./scenes/breakdown";
@@ -19,6 +19,7 @@ import Breakdown from "./scenes/breakdown";
 import Performance from "./scenes/performance";
 import Profile from "./scenes/profile";
 import Loans from "./scenes/Loans";
+import AppliedLoans from "./scenes/AppliedLoans";
 
 function UserDashboard() {
   const mode = useSelector((state) => state.global.mode);
@@ -54,8 +55,8 @@ function UserDashboard() {
               exact
             />
             <Route
-              path="/user-dashboard/overview"
-              element={<Overview />}
+              path="/user-dashboard/appliedloans"
+              element={<AppliedLoans />}
               exact
             />
             <Route path="/user-dashboard/Loans" element={<Loans />} exact />

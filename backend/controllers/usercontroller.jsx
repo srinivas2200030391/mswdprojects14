@@ -6,6 +6,7 @@ const salt = bcrypt.genSaltSync(10);
 const secret = bcrypt.hashSync("BA/4789adfafadfafa", salt);
 const jwt = require("jsonwebtoken");
 const LoanApplicant = require("../models/LoanApplicant.jsx");
+const PendingLoanApplicant = require("../models/PendingLoanApplicant.jsx");
 
 const generateAccountNumber = () => {
   const accountnumber = Math.floor(
@@ -187,24 +188,40 @@ const getuserbyaccount = async (request, response) => {
 const applyLoan = async (request, response) => {
   try {
     const data = request.body;
-    let loans = await loan.findOne({ title: data["title"] });
-    const users = await user.findOne(
-      { accountnumber: data["account"] },
-      { username: 1, accountnumber: 1 }
-    );
-    console.log(users);
-    loans["_doc"]["applicantAccount"] = users["accountnumber"];
-    loans["_doc"]["applicantName"] = users["username"];
-    console.log(loans);
-    //loans = loans[0];
-    //console.log(s);
-    const t = new LoanApplicant(loans);
-    t.isNew = true;
-    await t.save();
-    console.log("Successful");
-    response.status(200).send("Success");
+    const loandata = await LoanApplicant.findOne({
+      applicantAccount: data["account"],
+      title: data["title"],
+    });
+    if (loandata) {
+      response.status(200).send("You have already applied for this loan");
+    } else {
+      let loans = await loan.findOne({ title: data["title"] }, { _id: 0 });
+      const users = await user.findOne(
+        { accountnumber: data["account"] },
+        { _id: 1, username: 1, accountnumber: 1 }
+      );
+
+      loans["_doc"]["applicantAccount"] = users["accountnumber"];
+      loans["_doc"]["applicantName"] = users["username"];
+
+      const t = new LoanApplicant(loans);
+      t.isNew = true;
+      await t.save();
+      console.log("Successful");
+      response.status(200).send("Success");
+    }
   } catch (e) {
     response.status(500).send(e.message);
+  }
+};
+const getAppliedLoans = async (request, response) => {
+  try {
+    const data = await LoanApplicant.find({
+      applicantAccount: request.params.id,
+    });
+    response.json(data);
+  } catch (error) {
+    console.log(error.message);
   }
 };
 module.exports = {
@@ -218,4 +235,5 @@ module.exports = {
   Credit,
   Withdrawl,
   applyLoan,
+  getAppliedLoans,
 };

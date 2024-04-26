@@ -4,6 +4,8 @@ const pending = require("../models/PendingModel.jsx");
 const reject = require("../models/RejectedModel.jsx");
 const loan = require("../models/LoanModel.jsx");
 const bcrypt = require("bcrypt");
+const PendingLoanApplicant = require("../models/PendingLoanApplicant.jsx");
+const LoanApplicant = require("../models/LoanApplicant.jsx");
 const salt = bcrypt.genSaltSync(10);
 const secret = "ABCD";
 const viewusers = async (req, res) => {
@@ -167,6 +169,78 @@ const deleteloans = async (request, response) => {
     response.status(500).send(error.message);
   }
 };
+const acceptloans = async (request, response) => {
+  try {
+    const data = request.body;
+    console.log(data);
+    const data1 = await LoanApplicant.find({
+      applicantAccount: data["account"],
+      title: data["title"],
+      status: "Applied",
+    });
+    if (data1) {
+      console.log(data1);
+      const s = await LoanApplicant.updateOne(
+        {
+          applicantAccount: data["account"],
+          title: data["title"],
+          status: "Applied",
+        },
+        { $set: { status: "Selected" } }
+      );
+      console.log(s);
+      response.status(200).send("Success");
+    }
+  } catch (error) {
+    response.status(500).send(error.message);
+  }
+};
+const rejectloans = async (request, response) => {
+  try {
+    const data = request.body;
+  
+    const data1 = await LoanApplicant.find({
+      applicantAccount: data["account"],
+      title: data["title"],
+      status: "Applied",
+    });
+    if (data1) {
+      console.log(data1);
+      const s = await LoanApplicant.updateOne(
+        {
+          applicantAccount: data["account"],
+          title: data["title"],
+          status: "Applied",
+        },
+        { $set: { status: "Rejected" } }
+      );
+      console.log(s);
+      response.status(200).send("Success");
+    }
+  } catch (error) {
+    response.status(500).send(error.message);
+  }
+};
+const viewacceptedloans = async (request, response)=>{
+  try {
+    const data1 = await LoanApplicant.find({
+      status: "Selected",
+    });
+    response.status(200).send(data1)
+  } catch (error) {
+    response.status(500).send(error.message);
+  }
+}
+const viewpendingloans = async (request, response)=>{
+  try {
+    const data1 = await LoanApplicant.find({
+      status: "Applied",
+    });
+    response.status(200).send(data1)
+  } catch (error) {
+    response.status(500).send(error.message);
+  }
+}
 module.exports = {
   viewusers,
   editusers,
@@ -182,4 +256,8 @@ module.exports = {
   viewloans,
   editloans,
   deleteloans,
+  acceptloans,
+  rejectloans,
+  viewacceptedloans,
+  viewpendingloans
 };

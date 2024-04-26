@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const loanApplicantSchema = new mongoose.Schema({
+const PendingLoanApplicantSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -32,6 +32,6 @@ const loanApplicantSchema = new mongoose.Schema({
   // Add other relevant fields as needed (e.g., collateral, purpose, etc.)
 });
 
-const LoanApplicant = mongoose.model("LoanApplicant", loanApplicantSchema);
+const PendingLoanApplicant = mongoose.model("PendingLoanApplicant", PendingLoanApplicantSchema);
 
-module.exports = LoanApplicant;
+module.exports = PendingLoanApplicant;

@@ -13,5 +13,6 @@ response.put("/Credit/", users.Credit);
 response.put("/Withdrawl/", users.Withdrawl);
 response.put("/editusers/:id", users.editusers);
 response.post("/applyloan", users.applyLoan);
+response.get("/getappliedloans/:id", users.getAppliedLoans);
 
 module.exports = response;

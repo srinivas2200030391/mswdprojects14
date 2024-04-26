@@ -10,23 +10,13 @@ import axios from "axios";
 const Customers = () => {
   const theme = useTheme();
   const [data, setData] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const handleUpdate = async (user1) => {
-    try {
-      await axios.put(`http://localhost:2014/admin/acceptloan`, {
-        title: user1[0],
-        account: user1[1],
-      });
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
-
+  const [error, setError] = useState("");
   const axiosData = async () => {
     try {
+      const user = localStorage.getItem("User");
+      const account = JSON.parse(user)[0].accountnumber;
       const response = await axios.get(
-        "http://localhost:2014/admin/viewpendingloans"
+        `http://localhost:2014/users/getappliedloans/${account}`
       );
       console.log(response.data);
       setData(response.data);
@@ -38,86 +28,38 @@ const Customers = () => {
     axiosData();
   }, []); //No dependencies
 
-  const deleteusers = async (user1) => {
-    try {
-      await axios.put(`http://localhost:2014/admin/rejectloan`, {
-        title: user1[0],
-        account: user1[1],
-      });
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
-
   const columns = [
     {
       field: "title",
       headerName: "Title",
-      flex: 0.5,
+      flex: 1,
     },
     {
       field: "loanAmount",
-      headerName: "loanAmount",
+      headerName: "Loan Amount",
       flex: 0.5,
     },
     {
       field: "interestRate",
-      headerName: "interestRate",
+      headerName: "Interest Rate",
       flex: 1,
     },
     {
       field: "loanTerm",
-      headerName: "loanTerm",
+      headerName: "Loan Term",
       flex: 0.5,
     },
-    {
-      field: "applicantAccount",
-      headerName: "applicantAccount",
-      flex: 0.4,
-    },
-    {
-      field: "applicantName",
-      headerName: "applicantName",
-      flex: 0.5,
-    },
+
     {
       field: "status",
-      headerName: "status",
+      headerName: "Status",
       flex: 0.5,
-    },
-    {
-      field: "action",
-      headerName: "Action",
-      flex: 0.7,
-      renderCell: (params) => (
-        <div style={{ marginLeft: "-6pt" }}>
-          <Button
-            variant="contained"
-            color="primary"
-            size="small"
-            onClick={() =>
-              handleUpdate([params.row.title, params.row.applicantAccount])
-            }>
-            Accept
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            size="small"
-            onClick={() =>
-              deleteusers([params.row.title, params.row.applicantAccount])
-            }
-            style={{ marginLeft: "8px" }}>
-            Reject
-          </Button>
-        </div>
-      ),
     },
   ];
 
   return (
     <Box m="1.5rem 2.5rem">
-      <Header title="Bankers" subtitle="List of Bankers" />
+      <Header title="Loans" subtitle="List of Loans" />
       <Box
         mt="40px"
         height="75vh"
@@ -151,7 +93,6 @@ const Customers = () => {
           columns={columns}
         />
       </Box>
-      
     </Box>
   );
 };
