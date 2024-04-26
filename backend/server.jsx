@@ -38,6 +38,7 @@ app.use("/admin", adminRoutes);
 const login = async (request, response) => {
   try {
     const s = await request.body;
+    console.log(s);
     const id = Object.values(s)[0];
     console.log(s);
     const password = Object.values(s)[1];

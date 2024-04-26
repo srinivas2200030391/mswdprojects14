@@ -120,7 +120,10 @@ const Credit = async (request, response) => {
     console.log(s);
     const email = Object.values(s)[0];
     const value = parseInt(Object.values(s)[1]);
-    var data = await user.find({ email: email }, { _id: 1, balance: 1 });
+    var data = await user.find(
+      { accountnumber: email },
+      { _id: 1, balance: 1 }
+    );
     data = data[0];
     data = await user.updateOne(
       { _id: data._id },
@@ -138,7 +141,10 @@ const Withdrawl = async (request, response) => {
     console.log(s);
     const email = Object.values(s)[0];
     const value = parseInt(Object.values(s)[1]);
-    var data = await user.find({ email: email }, { _id: 1, balance: 1 });
+    var data = await user.find(
+      { accountnumber: email },
+      { _id: 1, balance: 1 }
+    );
     data = data[0];
     if (data.balance < value) {
       return response.json("Insufficient Balance");
@@ -167,11 +173,22 @@ const viewloans = async (request, response) => {
   }
 };
 
+const getuserbyaccount = async (request, response) => {
+  try {
+    const account = request.params.account;
+    const userData = await user.findOne({ accountnumber: account });
+    response.json(userData);
+  } catch (error) {
+    console.log(error.message);
+    response.status(500).send(error.message);
+  }
+};
 module.exports = {
   create,
   viewloans,
   viewcustomers,
   getuserbyemail,
+  getuserbyaccount,
   editusers,
   deleteusers,
   Credit,

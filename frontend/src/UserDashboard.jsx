@@ -3,7 +3,7 @@ import React from "react";
 import { createTheme } from "@mui/material/styles";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { themeSettings } from "./theme";
 import Layout from "./scenes/layout";
 import Dashboard from "./scenes/dashboard";
@@ -13,11 +13,12 @@ import Transactions from "./scenes/transactions";
 import Transfer from "./scenes/transfer";
 import Overview from "./scenes/overview";
 import Daily from "./scenes/daily";
-import Monthly from "./scenes/monthly";
+import Monthly from "./scenes/Loans";
 import Breakdown from "./scenes/breakdown";
 
 import Performance from "./scenes/performance";
 import Profile from "./scenes/profile";
+import Loans from "./scenes/Loans";
 
 function UserDashboard() {
   const mode = useSelector((state) => state.global.mode);
@@ -57,7 +58,7 @@ function UserDashboard() {
               element={<Overview />}
               exact
             />
-            <Route path="/user-dashboard/daily" element={<Daily />} exact />
+            <Route path="/user-dashboard/Loans" element={<Loans />} exact />
             <Route path="/user-dashboard/monthly" element={<Monthly />} exact />
             <Route
               path="/user-dashboard/breakdown"

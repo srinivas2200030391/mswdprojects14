@@ -6,6 +6,7 @@ response.post("/createuser", users.create);
 response.get("/viewcustomers", users.viewcustomers);
 // response.get("/view/:email", users.viewbyemail);
 response.get("/getuserbyemail/:email", users.getuserbyemail);
+response.get("/getuserbyaccount/:account", users.getuserbyaccount);
 response.delete("/delete/:id", users.deleteusers);
 response.get("/viewloans", users.viewloans);
 response.put("/Credit/", users.Credit);

@@ -49,11 +49,11 @@ const navItems = [
     icon: <Groups2Outlined />,
   },
   {
-    text: "Transactions",
+    text: "Transfer",
     icon: <ReceiptIcon />,
   },
   {
-    text: "Transfer",
+    text: "Transactions",
     icon: <PublicOutlined />,
   },
   {
@@ -65,19 +65,19 @@ const navItems = [
     icon: null,
   },
   {
-    text: "Overview",
+    text: "Loans",
     icon: <PointOfSaleOutlined />,
   },
   {
-    text: "Daily",
+    text: "AppliedLoans",
     icon: <TodayOutlined />,
   },
   {
-    text: "Monthly",
+    text: "AcceptedLoans",
     icon: <CalendarMonthOutlined />,
   },
   {
-    text: "Breakdown",
+    text: "RejectedLoans",
     icon: <PieChartOutlined />,
   },
 ];
