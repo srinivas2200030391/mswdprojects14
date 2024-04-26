@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const salt = bcrypt.genSaltSync(10);
 const secret = bcrypt.hashSync("BA/4789adfafadfafa", salt);
 const jwt = require("jsonwebtoken");
+const LoanApplicant = require("../models/LoanApplicant.jsx");
 
 const generateAccountNumber = () => {
   const accountnumber = Math.floor(
@@ -183,6 +184,29 @@ const getuserbyaccount = async (request, response) => {
     response.status(500).send(error.message);
   }
 };
+const applyLoan = async (request, response) => {
+  try {
+    const data = request.body;
+    let loans = await loan.findOne({ title: data["title"] });
+    const users = await user.findOne(
+      { accountnumber: data["account"] },
+      { username: 1, accountnumber: 1 }
+    );
+    console.log(users);
+    loans["_doc"]["applicantAccount"] = users["accountnumber"];
+    loans["_doc"]["applicantName"] = users["username"];
+    console.log(loans);
+    //loans = loans[0];
+    //console.log(s);
+    const t = new LoanApplicant(loans);
+    t.isNew = true;
+    await t.save();
+    console.log("Successful");
+    response.status(200).send("Success");
+  } catch (e) {
+    response.status(500).send(e.message);
+  }
+};
 module.exports = {
   create,
   viewloans,
@@ -193,4 +217,5 @@ module.exports = {
   deleteusers,
   Credit,
   Withdrawl,
+  applyLoan,
 };

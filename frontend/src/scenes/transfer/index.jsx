@@ -339,7 +339,8 @@ const Transactions = () => {
           const resdata = [];
           resdata.push(response.data);
           setUserData(resdata);
-          console.log(Object.values(UserData)[0]);
+        } else {
+          setUserData([]);
         }
       }
     } catch (error) {
@@ -349,9 +350,8 @@ const Transactions = () => {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       handleSearchInput();
-    }, 500); // Delay in milliseconds (e.g., 500ms = 0.5s)
+    }, 500);
 
-    // Clean up the timeout on component unmount or when the dependencies change
     return () => clearTimeout(timeoutId);
   }, [searchInput]);
   return (
