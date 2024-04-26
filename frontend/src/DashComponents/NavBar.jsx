@@ -26,6 +26,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { userSlice } from "./../state/userSlice";
 import { loginUser, logoutUser } from "./../state/userSlice";
+import './Dashboard.css'
 
 const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
@@ -50,6 +51,9 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   // Get user data from Redux store
   // const user = useSelector((state) => state.user.userSlice);
 
+ const updateprofile = ()=>{
+  navigate("/addprofile")
+ }  
   return (
     <AppBar
       sx={{
@@ -138,9 +142,10 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
             <Menu
               anchorEl={anchorEl}
               open={isOpen}
-              onClose={handleLogout}
+              // onClose={handleLogout}
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}>
               <MenuItem onClick={handleLogout}>Log Out</MenuItem>
+              <MenuItem onClick={updateprofile}>Update Profile Picture</MenuItem>
             </Menu>
           </FlexBetween>
         </FlexBetween>

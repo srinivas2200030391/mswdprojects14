@@ -66,9 +66,9 @@ const Profile = (props) => {
 
   return (
     <Box m="1.5rem 2.5rem">
-      <Header title="Profile" />
+      <Header title="Profile"/>
 
-      {/* Profile Editing Modal */}
+      {/* Profile Editing Mo dal */}
       <Modal open={open} onClose={handleClose}>
         <Box
           sx={{
