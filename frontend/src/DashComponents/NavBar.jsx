@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   LightModeOutlined,
   DarkModeOutlined,
@@ -8,7 +8,7 @@ import {
   ArrowDropDownOutlined,
 } from "@mui/icons-material";
 import FlexBetween from "./FlexBetween";
-import { useDispatch, useSelector } from "react-redux"; // Import useSelector hook
+import { useDispatch, useSelector } from "react-redux";
 import { setMode } from "../state1/index";
 import profileImage from "../assets/profile.jpeg";
 import {
@@ -24,15 +24,15 @@ import {
   useTheme,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { userSlice } from "./../state/userSlice";
-import { loginUser, logoutUser } from "./../state/userSlice";
 
 const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
   const theme = useTheme();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorElSettings, setAnchorElSettings] = useState(null);
   const isOpen = Boolean(anchorEl);
+  const isSettingsMenuOpen = Boolean(anchorElSettings);
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const user = useSelector((state) => state.user);
   const handleLogout = () => {
@@ -41,14 +41,14 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
     navigate("/");
     window.location.reload();
   };
-  //   const handleLogout = () => {
-  //     dispatch(logoutUser());
-  //     navigate("/signin");
-  //     // No need for localStorage removal or window.location.reload() if handled within your slice
-  // };
 
-  // Get user data from Redux store
-  // const user = useSelector((state) => state.user.userSlice);
+  const handleSettingsMenuOpen = (event) => {
+    setAnchorElSettings(event.currentTarget);
+  };
+
+  const handleSettingsMenuClose = () => {
+    setAnchorElSettings(null);
+  };
 
   return (
     <AppBar
@@ -95,9 +95,18 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
               <LightModeOutlined sx={{ fontSize: "25px" }} />
             )}
           </IconButton>
-          <IconButton>
+          <IconButton onClick={handleSettingsMenuOpen}>
             <SettingsOutlined sx={{ fontSize: "25px" }} />
           </IconButton>
+          <Menu
+            anchorEl={anchorElSettings}
+            open={isSettingsMenuOpen}
+            onClose={handleSettingsMenuClose}>
+            <MenuItem
+              onClick={() => navigate("/user-dashboard/changepassword")}>
+              Change Password
+            </MenuItem>
+          </Menu>
 
           <FlexBetween>
             <Button

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   LightModeOutlined,
   DarkModeOutlined,
@@ -9,7 +8,7 @@ import {
   ArrowDropDownOutlined,
 } from "@mui/icons-material";
 import FlexBetween from "./FlexBetween";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setMode } from "../state1/index";
 import profileImage from "../assets/profile.jpeg";
 import {
@@ -24,20 +23,31 @@ import {
   MenuItem,
   useTheme,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
+const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
   const theme = useTheme();
   const navigate = useNavigate();
-
   const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorElSettings, setAnchorElSettings] = useState(null);
   const isOpen = Boolean(anchorEl);
+  const isSettingsMenuOpen = Boolean(anchorElSettings);
   const handleClick = (event) => setAnchorEl(event.currentTarget);
-  const handleClose = () => {
-    localStorage.removeItem("isAdminLoggedIn");
-    localStorage.removeItem("Admin");
+  const user = useSelector((state) => state.user);
+  const handleLogout = () => {
+    localStorage.removeItem("isCustomerLoggedIn");
+    localStorage.removeItem("User");
     navigate("/");
     window.location.reload();
+  };
+
+  const handleSettingsMenuOpen = (event) => {
+    setAnchorElSettings(event.currentTarget);
+  };
+
+  const handleSettingsMenuClose = () => {
+    setAnchorElSettings(null);
   };
 
   return (
@@ -66,11 +76,15 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
                 outline: "none",
               }}
             />
+
             <IconButton>
               <Search />
             </IconButton>
           </FlexBetween>
         </FlexBetween>
+
+        {/* Display user details if logged in */}
+        {user && <h3>Welcome {user.username}</h3>}
 
         {/* RIGHT SIDE */}
         <FlexBetween gap="1.5rem">
@@ -81,9 +95,18 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
               <LightModeOutlined sx={{ fontSize: "25px" }} />
             )}
           </IconButton>
-          <IconButton>
+          <IconButton onClick={handleSettingsMenuOpen}>
             <SettingsOutlined sx={{ fontSize: "25px" }} />
           </IconButton>
+          <Menu
+            anchorEl={anchorElSettings}
+            open={isSettingsMenuOpen}
+            onClose={handleSettingsMenuClose}>
+            <MenuItem
+              onClick={() => navigate("admin-dashboard/changepassword")}>
+              Change Password
+            </MenuItem>
+          </Menu>
 
           <FlexBetween>
             <Button
@@ -109,12 +132,12 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
                   fontWeight="bold"
                   fontSize="0.85rem"
                   sx={{ color: theme.palette.secondary[100] }}>
-                  {user.name}
+                  {/* {user.username} */}
                 </Typography>
                 <Typography
                   fontSize="0.75rem"
                   sx={{ color: theme.palette.secondary[200] }}>
-                  {user.occupation}
+                  {/* {user.occupation} */}
                 </Typography>
               </Box>
               <ArrowDropDownOutlined
@@ -124,9 +147,9 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
             <Menu
               anchorEl={anchorEl}
               open={isOpen}
-              onClose={handleClose}
+              onClose={handleLogout}
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}>
-              <MenuItem onClick={handleClose}>Log Out</MenuItem>
+              <MenuItem onClick={handleLogout}>Log Out</MenuItem>
             </Menu>
           </FlexBetween>
         </FlexBetween>

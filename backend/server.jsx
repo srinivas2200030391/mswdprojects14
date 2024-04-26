@@ -73,6 +73,35 @@ const login = async (request, response) => {
 };
 app.post("/login", login);
 
+const changepassword = async (request, response) => {
+  try {
+    const { id, password, newpassword } = request.body;
+
+    const user1 = await user.find({ _id: id });
+    console.log(user1);
+
+    const isPasswordValid = await bcrypt.compare(password, user1.password);
+    if (!isPasswordValid) {
+      return response
+        .status(400)
+        .json({ message: "Current password is incorrect" });
+    }
+
+    // Hash the new password
+    const salt = await bcrypt.genSalt(10);
+    const hashedNewPassword = await bcrypt.hash(newpassword, salt);
+
+    // Update the user's password
+    user1.password = hashedNewPassword;
+    await user1.save();
+
+    response.status(200).json({ message: "Password changed successfully" });
+  } catch (err) {
+    response.status(500).json(err.message);
+  }
+};
+app.put("/changepassword", changepassword);
+
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log("Server is running at port: " + PORT);

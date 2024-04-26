@@ -14,7 +14,7 @@ import Loans from "./scenes1/Loans";
 import AddLoans from "./scenes1/AddLoans";
 import Applications from "./scenes1/Applications";
 import CreditOrDebit from "./scenes1/CreditOrDebit";
-
+import ChangePassword from "./scenes1/changepassword";
 function AdminDashboard() {
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
@@ -41,6 +41,10 @@ function AdminDashboard() {
             <Route
               path="/admin-dashboard/Applications"
               element={<Applications />}
+            />
+            <Route
+              path="/admin-dashboard/changepassword"
+              element={<ChangePassword />}
             />
           </Route>
         </Routes>
