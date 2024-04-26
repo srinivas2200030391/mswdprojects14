@@ -1,7 +1,6 @@
 const user = require("../models/customer.jsx");
 const pending = require("../models/PendingModel.jsx");
 const loan = require("../models/LoanModel.jsx");
-const Transaction = require("../models/Transactions.jsx")
 const bcrypt = require("bcrypt");
 const salt = bcrypt.genSaltSync(10);
 const secret = bcrypt.hashSync("BA/4789adfafadfafa", salt);
@@ -12,8 +11,13 @@ const PendingLoanApplicant = require("../models/PendingLoanApplicant.jsx");
 =======
 const multer = require('multer')
 const path = require('path')
+<<<<<<< HEAD
 const fs = require('fs')
 >>>>>>> 06d403408de945e70c04c43ff72b278e835d30d8
+=======
+const fs = require('fs');
+const TransactionModel = require("../models/Transactions.jsx");
+>>>>>>> 8b2748f05037883fdc9c1e903ad780e350ba1560
 
 const generateAccountNumber = () => {
   const accountnumber = Math.floor(
@@ -140,10 +144,12 @@ const Credit = async (request, response) => {
     const reciever = email;
     const amount = value;
 
-const newTransaction = new Transaction({
-  sender: sender,
-  reciever: reciever,
-  amount: amount
+
+const newTransaction = new TransactionModel({
+  sender,
+  reciever,
+  amount,
+  
 });
 
 await newTransaction.save();

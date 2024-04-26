@@ -189,6 +189,20 @@ const Profile = (props) => {
               backgroundColor: theme.palette.background.paper,
             }}>
             <Box>
+            <Typography
+                variant="h3"
+                component="img"
+                src={userData.photo}
+                gutterBottom
+                sx={{
+                  fontFamily: "Roboto, sans-serif",
+                  color: theme.palette.secondary.main,
+                  textShadow: "2px 2px 4px rgba(0, 0, 0, 0.3)",
+                  padding: "1pt 0 10pt 0",
+                  width:"90px",
+                }}>
+                
+              </Typography>
               <Typography
                 variant="h3"
                 component="div"
