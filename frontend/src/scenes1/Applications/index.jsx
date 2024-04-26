@@ -6,7 +6,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+import config from "../../config.jsx";
 const Customers = () => {
   const theme = useTheme();
   const [data, setData] = useState([]);
@@ -14,7 +14,7 @@ const Customers = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const handleUpdate = async (user1) => {
     try {
-      await axios.put(`http://localhost:2014/admin/acceptloan`, {
+      await axios.put(`${config.baseURL}/admin/acceptloan`, {
         title: user1[0],
         account: user1[1],
       });
@@ -27,7 +27,7 @@ const Customers = () => {
   const axiosData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:2014/admin/viewpendingloans"
+        `${config.baseURL}/admin/viewpendingloans`
       );
       console.log(response.data);
       setData(response.data);
@@ -41,7 +41,7 @@ const Customers = () => {
 
   const deleteusers = async (user1) => {
     try {
-      await axios.put(`http://localhost:2014/admin/rejectloan`, {
+      await axios.put(`${config.baseURL}/admin/rejectloan`, {
         title: user1[0],
         account: user1[1],
       });

@@ -6,15 +6,14 @@ import { DataGrid } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+import config from "../../config.jsx";
 const pending = () => {
   const theme = useTheme();
   const [data, setData] = useState([]);
   const axiosData = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:2014/admin/viewpending"
-      );
+      console.log(`${config.baseURL}`);
+      const response = await axios.get(`${config.baseURL}/admin/viewpending`);
       console.log(response.data);
       setData(response.data);
     } catch (e) {
@@ -28,7 +27,7 @@ const pending = () => {
   const deleteusers = async (id) => {
     try {
       const response = await axios.post(
-        `http://localhost:2014/admin/rejectusers/${id}`
+        `${config.baseURL}/admin/rejectusers/${id}`
       );
       axiosData();
     } catch (e) {
@@ -39,7 +38,7 @@ const pending = () => {
     try {
       console.log(id);
       const response = await axios.post(
-        `http://localhost:2014/admin/acceptusers/${id}`
+        `${config.baseURL}/admin/acceptusers/${id}`
       );
       axiosData();
     } catch (e) {

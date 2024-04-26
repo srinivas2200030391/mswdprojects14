@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./RegistrationPage.css";
 import { useTheme } from "@mui/material";
 import axios from "axios";
+import config from "../../config.jsx";
 const RegistrationPage = () => {
   const [formData, setFormData] = useState({
     title: "",
@@ -18,7 +19,7 @@ const RegistrationPage = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:2014/admin/createloan",
+        `${config.baseURL}/admin/createloan`,
         formData
       );
       if (response.data != null) {

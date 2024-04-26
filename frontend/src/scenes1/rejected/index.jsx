@@ -6,6 +6,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import config from "../../config.jsx";
 
 const rejected = () => {
   const theme = useTheme();
@@ -13,7 +14,7 @@ const rejected = () => {
   const axiosData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:2014/admin/viewrejected"
+        `${config.baseURL}/admin/viewrejected`
       );
       console.log(response.data);
       setData(response.data);
@@ -28,7 +29,7 @@ const rejected = () => {
   const deleteusers = async (id) => {
     try {
       const response = await axios.post(
-        `http://localhost:2014/admin/deleterejected/${id}`
+        `${config.baseURL}/admin/deleterejected/${id}`
       );
       axiosData();
     } catch (e) {
@@ -39,7 +40,7 @@ const rejected = () => {
     try {
       console.log(id);
       const response = await axios.post(
-        `http://localhost:2014/admin/acceptrejectedusers/${id}`
+        `${config.baseURL}/admin/acceptrejectedusers/${id}`
       );
       axiosData();
     } catch (e) {
@@ -67,9 +68,7 @@ const rejected = () => {
       field: "phone",
       headerName: "Phone Number",
       flex: 0.5,
-      renderCell: (params) => {
-        return params.value.replace(/^(\d{3})(\d{3})(\d{4})/, "($1)$2-$3");
-      },
+      
     },
     {
       field: "aadhar",

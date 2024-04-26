@@ -6,7 +6,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+import config from "../../config.jsx";
 const Customers = () => {
   const theme = useTheme();
   const [data, setData] = useState([]);
@@ -16,7 +16,7 @@ const Customers = () => {
       const user = localStorage.getItem("User");
       const account = JSON.parse(user)[0].accountnumber;
       const response = await axios.get(
-        `http://localhost:2014/users/getappliedloans/${account}`
+        `${config.baseURL}/users/getappliedloans/${account}`
       );
       console.log(response.data);
       setData(response.data);

@@ -11,7 +11,7 @@ import {
 import Header from "../../DashComponents1/Header";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
-
+import config from "../../config.jsx";
 const Profile = (props) => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
@@ -37,7 +37,7 @@ const Profile = (props) => {
       const user = localStorage.getItem("User");
       const id = JSON.parse(user)[0]._id;
       const response = await axios.put(
-        `http://localhost:2014/users/editusers/${id}`,
+        `${config.baseURL}/users/editusers/${id}`,
         updatedUserData
       );
     
@@ -54,7 +54,7 @@ const Profile = (props) => {
     const userEmail = JSON.parse(user)[0].email;
     if (userEmail) {
       axios
-        .get(`http://localhost:2014/users/getuserbyemail/${userEmail}`)
+        .get(`${config.baseURL}/users/getuserbyemail/${userEmail}`)
         .then((response) => {
           setUserData(response.data);
         })

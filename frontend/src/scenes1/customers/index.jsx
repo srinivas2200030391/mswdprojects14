@@ -6,6 +6,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import config from "../../config.jsx";
 
 const Customers = () => {
   const theme = useTheme();
@@ -26,9 +27,8 @@ const Customers = () => {
   };
   const handleSaveChanges = async () => {
     try {
-      
       const response = await axios.put(
-        `http://localhost:2014/admin/updateuser/${selectedUser._id}`,
+        `${config.baseURL}/admin/updateuser/${selectedUser._id}`,
         updatedUser
       );
       console.log(response.data);
@@ -40,7 +40,8 @@ const Customers = () => {
   };
   const axiosData = async () => {
     try {
-      const response = await axios.get("http://localhost:2014/admin/viewusers");
+      console.log(`${config.baseURL}`);
+      const response = await axios.get(`${config.baseURL}/admin/viewusers`);
       console.log(response.data);
       setData(response.data);
     } catch (e) {
@@ -53,9 +54,7 @@ const Customers = () => {
 
   const deleteusers = async (id) => {
     try {
-      const response = await axios.delete(
-        `http://localhost:2014/admin/deleteusers/${id}`
-      );
+      await axios.delete(`${config.baseURL}/admin/deleteusers/${id}`);
       axiosData();
     } catch (e) {
       console.log(e.message);
@@ -82,9 +81,9 @@ const Customers = () => {
       field: "phone",
       headerName: "Phone Number",
       flex: 0.5,
-      renderCell: (params) => {
-        return params.value.replace(/^(\d{3})(\d{3})(\d{4})/, "($1)$2-$3");
-      },
+      // renderCell: (params) => {
+      //   return params.value.replace(/^(\d{3})(\d{3})(\d{4})/, "($1)$2-$3");
+      // },
     },
     {
       field: "aadhar",

@@ -6,7 +6,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+import config from "../../config.jsx";
 const Customers = () => {
   const theme = useTheme();
   const [data, setData] = useState([]);
@@ -27,7 +27,7 @@ const Customers = () => {
   const handleSaveChanges = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:2014/admin/updateloans/${selectedUser._id}`,
+        `${config.baseURL}/admin/updateloans/${selectedUser._id}`,
         updatedUser
       );
       console.log(response.data);
@@ -39,7 +39,7 @@ const Customers = () => {
   };
   const axiosData = async () => {
     try {
-      const response = await axios.get("http://localhost:2014/admin/viewloans");
+      const response = await axios.get(`${config.baseURL}/admin/viewloans`);
       console.log(response.data);
       setData(response.data);
     } catch (e) {
@@ -53,7 +53,7 @@ const Customers = () => {
   const deleteusers = async (id) => {
     try {
       const response = await axios.delete(
-        `http://localhost:2014/admin/deleteloans/${id}`
+        `${config.baseURL}/admin/deleteloans/${id}`
       );
       axiosData();
     } catch (e) {

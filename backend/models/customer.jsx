@@ -55,6 +55,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  creditScore: {
+    type: String,
+    default: 500,
+  },
 });
 
 const UserModel = mongoose.model("User", UserSchema);

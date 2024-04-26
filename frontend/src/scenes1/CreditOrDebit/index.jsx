@@ -13,7 +13,7 @@ import {
   Container,
   TextField,
 } from "@mui/material";
-
+import config from "../../config.jsx";
 const CreditOrDebit = () => {
   const theme = useTheme();
   const [UserData, setUserData] = useState([]);
@@ -34,7 +34,7 @@ const CreditOrDebit = () => {
   const handleTransfer = async (amount1) => {
     try {
       // Perform transfer logic here
-      const result = axios.put("http://localhost:2014/users/Credit", {
+      const result = axios.put(`${config.baseURL}/users/Credit`, {
         searchInput,
         amount1,
       });
@@ -61,31 +61,11 @@ const CreditOrDebit = () => {
     setOpen(false);
   };
 
-  // const handleTransfer = async () => {
-  //   try {
-  //     const response = await axios.post("http://localhost:2014/users/credit", {
-  //       accountnumber: selectedUser.accountnumber,
-  //       amount: parseFloat(amount),
-  //     });
-  //     // Update the user data with the new balance
-  //     const selectedUser = UserData[0].map((user) => {
-  //       if (user.accountnumber === selectedUser.accountnumber) {
-  //         return { ...user, balance: response.data.balance };
-  //       }
-  //       return user;
-  //     });
-  //     setUserData(selectedUser);
-  //     setShowCreditForm(false);
-  //     setAmount("");
-  //   } catch (error) {
-  //     console.error("Error transferring amount:", error);
-  //   }
-  // };
   const handleSearchInput = async () => {
     try {
       if (searchInput.length == 12) {
         const response = await axios.get(
-          `http://localhost:2014/users/getuserbyaccount/${searchInput}`
+          `${config.baseURL}/users/getuserbyaccount/${searchInput}`
         );
         if (response.data) {
           const resdata = [];
