@@ -19,7 +19,11 @@ import Breakdown from "./scenes/breakdown";
 import Performance from "./scenes/performance";
 import Profile from "./scenes/profile";
 import Loans from "./scenes/Loans";
+<<<<<<< HEAD
 import AppliedLoans from "./scenes/AppliedLoans";
+=======
+import UpdateProfile from "./scenes/updateprofilepic/UpdateProfile";
+>>>>>>> 06d403408de945e70c04c43ff72b278e835d30d8
 
 function UserDashboard() {
   const mode = useSelector((state) => state.global.mode);
@@ -74,6 +78,11 @@ function UserDashboard() {
             <Route
               path="/user-dashboard/performance"
               element={<Performance />}
+              exact
+            />
+            <Route
+              path="/addprofile"
+              element={<UpdateProfile/>}
               exact
             />
           </Route>

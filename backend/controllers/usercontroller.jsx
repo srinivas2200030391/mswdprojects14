@@ -1,12 +1,19 @@
 const user = require("../models/customer.jsx");
 const pending = require("../models/PendingModel.jsx");
 const loan = require("../models/LoanModel.jsx");
+const Transaction = require("../models/Transactions.jsx")
 const bcrypt = require("bcrypt");
 const salt = bcrypt.genSaltSync(10);
 const secret = bcrypt.hashSync("BA/4789adfafadfafa", salt);
 const jwt = require("jsonwebtoken");
+<<<<<<< HEAD
 const LoanApplicant = require("../models/LoanApplicant.jsx");
 const PendingLoanApplicant = require("../models/PendingLoanApplicant.jsx");
+=======
+const multer = require('multer')
+const path = require('path')
+const fs = require('fs')
+>>>>>>> 06d403408de945e70c04c43ff72b278e835d30d8
 
 const generateAccountNumber = () => {
   const accountnumber = Math.floor(
@@ -79,6 +86,9 @@ const getuserbyemail = async (request, response) => {
 //     response.status(500).send(error.message);
 //   }
 // };
+//userbyaccountno
+
+
 
 const editusers = async (request, response) => {
   try {
@@ -122,21 +132,29 @@ const Credit = async (request, response) => {
     console.log(s);
     const email = Object.values(s)[0];
     const value = parseInt(Object.values(s)[1]);
-    var data = await user.find(
-      { accountnumber: email },
-      { _id: 1, balance: 1 }
-    );
+    var data = await user.find({ accountnumber: email },{ _id: 1, balance: 1 });
     data = data[0];
-    data = await user.updateOne(
-      { _id: data._id },
-      { balance: data.balance + value }
-    );
+    data = await user.updateOne({ _id: data._id },{ balance: data.balance + value });
+
+    const sender = data._id;
+    const reciever = email;
+    const amount = value;
+
+const newTransaction = new Transaction({
+  sender: sender,
+  reciever: reciever,
+  amount: amount
+});
+
+await newTransaction.save();
     console.log(data);
     response.send("Updated");
   } catch (error) {
     response.status(500).send(error.message);
   }
 };
+
+
 const Withdrawl = async (request, response) => {
   try {
     const s = request.body;
@@ -185,6 +203,7 @@ const getuserbyaccount = async (request, response) => {
     response.status(500).send(error.message);
   }
 };
+<<<<<<< HEAD
 const applyLoan = async (request, response) => {
   try {
     const data = request.body;
@@ -224,6 +243,49 @@ const getAppliedLoans = async (request, response) => {
     console.log(error.message);
   }
 };
+=======
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/'); // Destination folder
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname); // File naming convention
+  }
+});
+
+const upload = multer({ storage: storage }).single('file');
+
+const addprofile = async (req, res) =>
+    {
+      try 
+      {
+        upload(req, res, async function (err) 
+        {
+          if (err) 
+          {
+            console.error(err);
+            return res.status(500).send(err.message);
+          }
+          
+          const fileName = req.file ? req.file.filename : undefined; // Extracting file name
+    
+          const newFile = new user({
+            file: fileName // Save only the file name
+          });
+    
+          await newFile.save();
+          res.status(200).send('Event Created Successfully');
+        });
+      } 
+      catch (error) 
+      {
+        console.error(error);
+        res.status(500).send(error.message);
+      }
+    };
+
+>>>>>>> 06d403408de945e70c04c43ff72b278e835d30d8
 module.exports = {
   create,
   viewloans,
@@ -233,6 +295,7 @@ module.exports = {
   editusers,
   deleteusers,
   Credit,
+  addprofile,
   Withdrawl,
   applyLoan,
   getAppliedLoans,

@@ -21,8 +21,8 @@ const Customers = () => {
     setUpdatedUser({ ...updatedUser, [e.target.name]: e.target.value });
   };
 
-  const handleUpdate = (user) => {
-    setSelectedUser(user);
+  const handleUpdate = () => {
+    setSelectedUser(localStorage.getItem("User"));
     setOpen(true);
   };
   const handleClose = () => {
@@ -32,9 +32,7 @@ const Customers = () => {
   const handleSaveChanges = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:2014/admin/updateuser/${selectedUser._id}`,
-        updatedUser
-      );
+        `http://localhost:2014/admin/updateuser/${selectedUser._id}`, updatedUser);
       console.log(response.data);
       handleClose();
       axiosData();
@@ -44,9 +42,9 @@ const Customers = () => {
   };
   const axiosData = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:2014/users/user/:${account}`
-      );
+      const user = localStorage.getItem("User")
+      const account = user.account
+      const response = await axios.get(`http://localhost:2014/users/getuserbyaccount/:${account}`);
       console.log(response.data);
       setData(response.data);
     } catch (e) {
@@ -71,7 +69,7 @@ const Customers = () => {
   const columns = [
     {
       field: "accountnumber",
-      headerName: "ID",
+      headerName: "ID NO",
       flex: 0.5,
     },
     {
