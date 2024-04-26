@@ -13,6 +13,7 @@ import Rejected from "./scenes1/rejected";
 import Loans from "./scenes1/Loans";
 import AddLoans from "./scenes1/AddLoans";
 import Applications from "./scenes1/Applications";
+import CreditOrDebit from "./scenes1/CreditOrDebit";
 
 function AdminDashboard() {
   const mode = useSelector((state) => state.global.mode);
@@ -33,6 +34,10 @@ function AdminDashboard() {
             <Route path="/admin-dashboard/rejected" element={<Rejected />} />
             <Route path="/admin-dashboard/Loans" element={<Loans />} />
             <Route path="/admin-dashboard/AddLoans" element={<AddLoans />} />
+            <Route
+              path="/admin-dashboard/credit/debit"
+              element={<CreditOrDebit />}
+            />
             <Route
               path="/admin-dashboard/Applications"
               element={<Applications />}

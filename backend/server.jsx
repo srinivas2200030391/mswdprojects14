@@ -53,6 +53,8 @@ const login = async (request, response) => {
         role = "Admin";
       }
     }
+    console.log(data);
+
     if (data) {
       const p = bcrypt.compareSync(
         password,

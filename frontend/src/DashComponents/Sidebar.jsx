@@ -72,14 +72,7 @@ const navItems = [
     text: "AppliedLoans",
     icon: <TodayOutlined />,
   },
-  {
-    text: "AcceptedLoans",
-    icon: <CalendarMonthOutlined />,
-  },
-  {
-    text: "RejectedLoans",
-    icon: <PieChartOutlined />,
-  },
+
 ];
 
 const Sidebar = ({

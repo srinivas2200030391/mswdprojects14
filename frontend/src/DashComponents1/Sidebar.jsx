@@ -50,7 +50,11 @@ const navItems = [
     text: "Rejected",
     icon: <ReceiptLongOutlined />,
   },
- 
+  {
+    text: "Credit/Debit",
+    icon: <PublicOutlined />,
+  },
+
   {
     text: "Loans",
     icon: null,
@@ -67,8 +71,6 @@ const navItems = [
     text: "Applications",
     icon: <CalendarMonthOutlined />,
   },
- 
- 
 ];
 
 const Sidebar = ({

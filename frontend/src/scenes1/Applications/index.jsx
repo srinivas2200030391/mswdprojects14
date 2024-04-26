@@ -18,6 +18,7 @@ const Customers = () => {
         title: user1[0],
         account: user1[1],
       });
+      axiosData();
     } catch (e) {
       console.log(e.message);
     }
@@ -44,6 +45,7 @@ const Customers = () => {
         title: user1[0],
         account: user1[1],
       });
+      axiosData();
     } catch (e) {
       console.log(e.message);
     }
@@ -151,7 +153,6 @@ const Customers = () => {
           columns={columns}
         />
       </Box>
-      
     </Box>
   );
 };
