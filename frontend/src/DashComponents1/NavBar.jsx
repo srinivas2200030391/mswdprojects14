@@ -36,8 +36,8 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const user = useSelector((state) => state.user);
   const handleLogout = () => {
-    localStorage.removeItem("isCustomerLoggedIn");
-    localStorage.removeItem("User");
+    localStorage.removeItem("isAdminLoggedIn");
+    localStorage.removeItem("Admin");
     navigate("/");
     window.location.reload();
   };

@@ -35,6 +35,7 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const isSettingsMenuOpen = Boolean(anchorElSettings);
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const user = useSelector((state) => state.user);
+  
   const handleLogout = () => {
     localStorage.removeItem("isCustomerLoggedIn");
     localStorage.removeItem("User");

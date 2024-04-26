@@ -80,7 +80,7 @@ const changepassword = async (request, response) => {
     const user1 = await user.find({ _id: id });
     console.log(user1);
 
-    const isPasswordValid = await bcrypt.compare(password, user1.password);
+    const isPasswordValid = await bcrypt.compareSync(password, user1.password);
     if (!isPasswordValid) {
       return response
         .status(400)
@@ -89,7 +89,7 @@ const changepassword = async (request, response) => {
 
     // Hash the new password
     const salt = await bcrypt.genSalt(10);
-    const hashedNewPassword = await bcrypt.hash(newpassword, salt);
+    const hashedNewPassword = bcrypt.hashSync(newpassword, salt);
 
     // Update the user's password
     user1.password = hashedNewPassword;

@@ -44,7 +44,7 @@ const PasswordChange = () => {
     e.preventDefault();
     const user = localStorage.getItem("Admin");
     const id = JSON.parse(user)[0]._id;
-    const result = await axios.put(`http://localhost:2014/changepassword`, {
+    await axios.put(`${config.baseURL}/changepassword`, {
       id: id,
       password: currentPassword,
       newpassword: newPassword,
