@@ -81,7 +81,7 @@ const CreditOrDebit = () => {
   };
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      handleSearchInput();<div className=".........................................  m ............"></div>
+      handleSearchInput();
     }, 500);
 
     return () => clearTimeout(timeoutId);

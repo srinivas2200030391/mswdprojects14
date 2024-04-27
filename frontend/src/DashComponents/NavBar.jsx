@@ -24,12 +24,9 @@ import {
   useTheme,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD
-=======
 import { userSlice } from "./../state/userSlice";
 import { loginUser, logoutUser } from "./../state/userSlice";
 import './Dashboard.css'
->>>>>>> 06d403408de945e70c04c43ff72b278e835d30d8
 
 const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();

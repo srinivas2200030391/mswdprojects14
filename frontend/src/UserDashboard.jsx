@@ -19,12 +19,9 @@ import Breakdown from "./scenes/breakdown";
 import Performance from "./scenes/performance";
 import Profile from "./scenes/profile";
 import Loans from "./scenes/Loans";
-<<<<<<< HEAD
 import AppliedLoans from "./scenes/AppliedLoans";
-=======
 import UpdateProfile from "./scenes/updateprofilepic/UpdateProfile";
->>>>>>> 06d403408de945e70c04c43ff72b278e835d30d8
-
+import CreditOrDebit from "./scenes/CreditOrDebit";
 function UserDashboard() {
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
@@ -81,10 +78,10 @@ function UserDashboard() {
               exact
             />
             <Route
-              path="/addprofile"
-              element={<UpdateProfile/>}
-              exact
+              path="/user-dashboard/credit/debit"
+              element={<CreditOrDebit />}
             />
+            <Route path="/addprofile" element={<UpdateProfile />} exact />
           </Route>
         </Routes>
       </ThemeProvider>

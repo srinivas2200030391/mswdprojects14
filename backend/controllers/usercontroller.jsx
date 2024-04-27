@@ -5,19 +5,16 @@ const bcrypt = require("bcrypt");
 const salt = bcrypt.genSaltSync(10);
 const secret = bcrypt.hashSync("BA/4789adfafadfafa", salt);
 const jwt = require("jsonwebtoken");
-<<<<<<< HEAD
+
 const LoanApplicant = require("../models/LoanApplicant.jsx");
 const PendingLoanApplicant = require("../models/PendingLoanApplicant.jsx");
-=======
+
 const multer = require('multer')
 const path = require('path')
-<<<<<<< HEAD
+
 const fs = require('fs')
->>>>>>> 06d403408de945e70c04c43ff72b278e835d30d8
-=======
-const fs = require('fs');
+
 const TransactionModel = require("../models/Transactions.jsx");
->>>>>>> 8b2748f05037883fdc9c1e903ad780e350ba1560
 
 const generateAccountNumber = () => {
   const accountnumber = Math.floor(
@@ -209,7 +206,6 @@ const getuserbyaccount = async (request, response) => {
     response.status(500).send(error.message);
   }
 };
-<<<<<<< HEAD
 const applyLoan = async (request, response) => {
   try {
     const data = request.body;
@@ -249,7 +245,6 @@ const getAppliedLoans = async (request, response) => {
     console.log(error.message);
   }
 };
-=======
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -291,7 +286,6 @@ const addprofile = async (req, res) =>
       }
     };
 
->>>>>>> 06d403408de945e70c04c43ff72b278e835d30d8
 module.exports = {
   create,
   viewloans,
