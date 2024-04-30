@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FlexBetween from "../../DashComponents1/FlexBetween";
 import Header from "../../DashComponents1/Header";
+import config from "../../config";
 import {
   DownloadOutlined,
   Email,
@@ -20,12 +21,23 @@ import BreakdownChart from "../../DashComponents1/BreakdownChart";
 import OverviewChart from "../../DashComponents1/OverviewChart";
 import { useGetDashboardQuery } from "../../state1/api";
 import StatBox from "../../DashComponents1/StatBox";
+import axios from "axios";
 
 const Dashboard = () => {
   const theme = useTheme();
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
-  const { data, isLoading } = useGetDashboardQuery();
+  const [data, setData] = useState([]);
 
+  useEffect(() => {
+    const getData = async (request, response) => {
+      const res = await axios.get(`${config.baseURL}/admin/viewusers`);
+      const a = [];
+      a.push(res.data);
+      setData(a);
+      console.log(res.data);
+    };
+    getData();
+  }, []);
   const columns = [
     {
       field: "_id",
@@ -89,8 +101,8 @@ const Dashboard = () => {
         {/* ROW 1 */}
         <StatBox
           title="Total Customers"
-          value={data && data.totalCustomers}
-          increase="+14%"
+          //value={data && data.totalCustomers}
+          increase={data.length}
           description="Since last month"
           icon={
             <Email
@@ -100,7 +112,7 @@ const Dashboard = () => {
         />
         <StatBox
           title="Sales Today"
-          value={data && data.todayStats.totalSales}
+          //value={data && data.todayStats.totalSales}
           increase="+21%"
           description="Since last month"
           icon={
@@ -119,7 +131,7 @@ const Dashboard = () => {
         </Box>
         <StatBox
           title="Monthly Sales"
-          value={data && data.thisMonthStats.totalSales}
+          //value={data && data.thisMonthStats.totalSales}
           increase="+5%"
           description="Since last month"
           icon={
@@ -130,7 +142,7 @@ const Dashboard = () => {
         />
         <StatBox
           title="Yearly Sales"
-          value={data && data.yearlySalesTotal}
+          //value={data && data.yearlySalesTotal}
           increase="+43%"
           description="Since last month"
           icon={
@@ -170,7 +182,7 @@ const Dashboard = () => {
             },
           }}>
           <DataGrid
-            loading={isLoading || !data}
+            loading={!data}
             getRowId={(row) => row._id}
             rows={(data && data.transactions) || []}
             columns={columns}

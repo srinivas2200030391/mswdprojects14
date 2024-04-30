@@ -62,7 +62,12 @@ const login = async (request, response) => {
       );
       if (p) {
         console.log("Successful");
-        response.json({ role: role, data: data });
+        // const token = jwt.sign(
+        //   { userId: data[0]._id, role: role },
+        //   process.env.JWT_SECRET,
+        //   { expiresIn: "1h" } // Token expires in 1 hour
+        // );
+        response.json({ role: role, token: token });
       }
     } else {
       response.status(500).send("Invalid Credentials");

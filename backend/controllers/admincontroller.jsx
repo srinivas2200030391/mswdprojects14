@@ -10,8 +10,7 @@ const salt = bcrypt.genSaltSync(10);
 const secret = "ABCD";
 const viewusers = async (req, res) => {
   try {
-    const customers = await user.find({});
-    console.log(customers);
+    const customers = await user.find({})
     res.status(200).json(customers);
   } catch (error) {
     res.status(404).json({ message: error.message });

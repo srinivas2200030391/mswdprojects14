@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import "./signin.css";
 import axios from "axios";
-
+import useAuth from "./useAuth";
 export default function Signin({ onCustomerLogin, onAdminLogin }) {
   const [formData, setFormData] = useState({
     email: location.state ? location.state.email : "",
@@ -11,6 +11,7 @@ export default function Signin({ onCustomerLogin, onAdminLogin }) {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { setAuthToken } = useAuth();
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.id]: event.target.value });
@@ -28,12 +29,12 @@ export default function Signin({ onCustomerLogin, onAdminLogin }) {
         if (response.data.role === "User") {
           onCustomerLogin();
           localStorage.setItem("User", JSON.stringify(response.data.data));
-
+         // setAuthToken(response.data.token, response.data.role);
           navigate("/user-dashboard/dashboard");
         } else if (response.data.role === "Admin") {
           onAdminLogin();
           localStorage.setItem("Admin", JSON.stringify(response.data.data));
-
+          //setAuthToken(response.data.token, response.data.role);
           navigate("/admin-dashboard/dashboard");
         }
       } else {
