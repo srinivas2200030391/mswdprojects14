@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./signup.css";
 import axios from "axios";
-
+import config from "../config";
 export default function Signin() {
   const [formData, setFormData] = useState({
     username: "",
@@ -26,7 +26,7 @@ export default function Signin() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://mswdprojects14.onrender.com/users/createuser",
+        `${config.baseURL}/users/createuser`,
         formData
       );
       if (response.data != null) {

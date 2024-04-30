@@ -3,6 +3,7 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import "./signin.css";
 import axios from "axios";
 import useAuth from "./useAuth";
+import config from "../config";
 export default function Signin({ onCustomerLogin, onAdminLogin }) {
   const [formData, setFormData] = useState({
     email: location.state ? location.state.email : "",
@@ -20,16 +21,13 @@ export default function Signin({ onCustomerLogin, onAdminLogin }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "https://mswdprojects14.onrender.com/login",
-        formData
-      );
+      const response = await axios.post(`${config.baseURL}/login`, formData);
       if (response) {
         console.log(response.data);
         if (response.data.role === "User") {
           onCustomerLogin();
           localStorage.setItem("User", JSON.stringify(response.data.data));
-         // setAuthToken(response.data.token, response.data.role);
+          // setAuthToken(response.data.token, response.data.role);
           navigate("/user-dashboard/dashboard");
         } else if (response.data.role === "Admin") {
           onAdminLogin();

@@ -22,6 +22,7 @@ import Loans from "./scenes/Loans";
 import AppliedLoans from "./scenes/AppliedLoans";
 import UpdateProfile from "./scenes/updateprofilepic/UpdateProfile";
 import CreditOrDebit from "./scenes/CreditOrDebit";
+import ChangePassword from "./scenes/changepassword";
 function UserDashboard() {
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
@@ -80,6 +81,10 @@ function UserDashboard() {
             <Route
               path="/user-dashboard/credit/debit"
               element={<CreditOrDebit />}
+            />
+            <Route
+              path="/user-dashboard/changepassword"
+              element={<ChangePassword />}
             />
             <Route path="/addprofile" element={<UpdateProfile />} exact />
           </Route>

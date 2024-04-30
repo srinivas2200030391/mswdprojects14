@@ -43,12 +43,19 @@ const PasswordChange = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user = localStorage.getItem("Admin");
+    console.log(user);
     const id = JSON.parse(user)[0]._id;
-    await axios.put(`${config.baseURL}/changepassword`, {
+    const response = await axios.put(`${config.baseURL}/changepassword`, {
       id: id,
       password: currentPassword,
       newpassword: newPassword,
+      role: "Admin",
     });
+    if (response) {
+      alert("Password changed successfully");
+      setCurrentPassword("");
+      setNewPassword("");
+    }
   };
 
   return (

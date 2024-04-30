@@ -38,9 +38,9 @@ app.use("/admin", adminRoutes);
 const login = async (request, response) => {
   try {
     const s = await request.body;
-    console.log(s);
+
     const id = Object.values(s)[0];
-    console.log(s);
+
     const password = Object.values(s)[1];
     var data = await user.find({ email: id });
     var role = "";
@@ -53,7 +53,6 @@ const login = async (request, response) => {
         role = "Admin";
       }
     }
-    console.log(data);
 
     if (data) {
       const p = bcrypt.compareSync(
@@ -67,7 +66,7 @@ const login = async (request, response) => {
         //   process.env.JWT_SECRET,
         //   { expiresIn: "1h" } // Token expires in 1 hour
         // );
-        response.json({ role: role });
+        response.json({ role: role, data: data });
       }
     } else {
       response.status(500).send("Invalid Credentials");
@@ -80,12 +79,18 @@ app.post("/login", login);
 
 const changepassword = async (request, response) => {
   try {
-    const { id, password, newpassword } = request.body;
+    const { id, password, newpassword, role } = request.body;
+    var user1 = "";
+    if (role == "User") {
+      user1 = await user.findOne({ _id: id }).select("+password");
+      console.log(user1);
+    }
+    if (role == "Admin") {
+      user1 = await admin.findOne({ _id: id }).select("+password");
+      console.log(user1);
+    }
 
-    const user1 = await user.find({ _id: id });
-    console.log(user1);
-
-    const isPasswordValid = await bcrypt.compareSync(password, user1.password);
+    const isPasswordValid = await bcrypt.compare(password, user1["password"]);
     if (!isPasswordValid) {
       return response
         .status(400)
@@ -97,7 +102,7 @@ const changepassword = async (request, response) => {
     const hashedNewPassword = bcrypt.hashSync(newpassword, salt);
 
     // Update the user's password
-    user1.password = hashedNewPassword;
+    user1["password"] = hashedNewPassword;
     await user1.save();
 
     response.status(200).json({ message: "Password changed successfully" });
