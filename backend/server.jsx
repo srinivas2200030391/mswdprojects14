@@ -31,7 +31,10 @@ mongoose
   .catch((err) => {
     console.log(err.message);
   });
-
+app.get('/', (req, res) => {
+  res.send("About Banking and Finance of Section 14, J Surya Kiran sir
+\n Team Members:-\n 2200030391 - K. Srinivas\n 2200030515 - Venkata Aravind\n 2200031423 - Leela Prasad");
+});
 app.use("/users", userRoutes);
 app.use("/admin", adminRoutes);
 
@@ -112,6 +115,9 @@ const changepassword = async (request, response) => {
 };
 app.put("/changepassword", changepassword);
 
+app.get('*', (req, res) => {
+  res.send("Route Not Found");
+});
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log("Server is running at port: " + PORT);
