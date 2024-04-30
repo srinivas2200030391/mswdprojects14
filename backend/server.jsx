@@ -67,7 +67,7 @@ const login = async (request, response) => {
         //   process.env.JWT_SECRET,
         //   { expiresIn: "1h" } // Token expires in 1 hour
         // );
-        response.json({ role: role, token: token });
+        response.json({ role: role });
       }
     } else {
       response.status(500).send("Invalid Credentials");
